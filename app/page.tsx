@@ -1,103 +1,200 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+import { useEffect, useState, Suspense } from 'react'
+import { SpotifyArtist, SearchType } from '@/types'
+import SearchForm from '@/components/Form'
+import AlbumsList from '@/components/Artist/List'
+import AppHeader from '@/components/AppHeader'
+import { SearchFilters, ArtistResults, AlbumResults } from '@/components/Search'
+import EmptyState from '@/components/EmptyState'
+import LoadingState from '@/components/LoadingState'
+import ErrorState from '@/components/ErrorState'
+import { useNavigation } from '@/hooks/useNavigation'
+import { useUrlInitialization } from '@/hooks/useUrlInitialization'
+import { useProgrammaticScroll } from '@/hooks/useProgrammaticScroll'
+import { usePrefetchObserver } from '@/hooks/usePrefetchObserver'
+import {
+	useOptimizedSearchAlbums,
+	useOptimizedSearchArtists,
+	useSearchState,
+	useCacheOptimization,
+} from '@/hooks/useSpotify'
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+function SpotifyApp() {
+	const [selectedArtist, setSelectedArtist] = useState<SpotifyArtist | null>(
+		null
+	)
+
+	const { updateURL, goHome } = useNavigation()
+	const { isProgrammaticScroll, startProgrammaticScroll } =
+		useProgrammaticScroll()
+
+	const {
+		searchQuery,
+		currentPage,
+		searchType,
+		handleSearch,
+		handlePageChange,
+		handleTypeChange,
+		prefetchNextPage,
+		clearSearch,
+	} = useSearchState()
+
+	const { cleanupCache } = useCacheOptimization()
+
+	useUrlInitialization({
+		handleSearch,
+		handlePageChange,
+		handleTypeChange,
+	})
+
+	const {
+		data: artistsData,
+		isLoading: isLoadingArtists,
+		error: artistsError,
+	} = useOptimizedSearchArtists({
+		query: searchQuery,
+		page: currentPage,
+		enabled: searchType === 'artist',
+	})
+
+	const {
+		data: albumsData,
+		isLoading: isLoadingAlbums,
+		error: albumsError,
+	} = useOptimizedSearchAlbums({
+		query: searchQuery,
+		page: currentPage,
+		enabled: searchType === 'album',
+	})
+
+	const { artistPaginationRef, albumPaginationRef } = usePrefetchObserver({
+		searchQuery,
+		searchType,
+		artistsData,
+		albumsData,
+		prefetchNextPage,
+		isProgrammaticScroll,
+	})
+
+	const isLoading = searchType === 'artist' ? isLoadingArtists : isLoadingAlbums
+	const error = searchType === 'artist' ? artistsError : albumsError
+	const errorMessage = error ? String(error) : null
+
+	const handleSearchWithNavigation = (query: string) => {
+		handleSearch(query)
+		setSelectedArtist(null)
+		updateURL({ query, page: 1, type: searchType })
+	}
+
+	const handlePageChangeWithNavigation = (page: number) => {
+		startProgrammaticScroll()
+		handlePageChange(page)
+		setSelectedArtist(null)
+		updateURL({ query: searchQuery, page, type: searchType })
+	}
+
+	const handleFilterChange = (type: SearchType) => {
+		handleTypeChange(type)
+		setSelectedArtist(null)
+		updateURL({ query: searchQuery, page: 1, type })
+	}
+
+	const handleClearSearch = () => {
+		clearSearch()
+		setSelectedArtist(null)
+		goHome()
+	}
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			cleanupCache()
+		}, 30 * 60 * 1000)
+
+		return () => clearInterval(interval)
+	}, [cleanupCache])
+
+	return (
+		<div className="min-h-screen bg-gray-50">
+			<AppHeader>
+				<SearchForm
+					onSearch={handleSearchWithNavigation}
+					isLoading={isLoading}
+				/>
+
+				{searchQuery && (
+					<SearchFilters
+						searchType={searchType}
+						onFilterChange={handleFilterChange}
+					/>
+				)}
+			</AppHeader>
+
+			<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+				{errorMessage && <ErrorState searchType={searchType} />}
+
+				{isLoading && searchQuery && <LoadingState searchType={searchType} />}
+
+				{searchType === 'artist' &&
+					artistsData &&
+					artistsData.artists.items.length > 0 && (
+						<ArtistResults
+							searchQuery={searchQuery}
+							artistsData={artistsData}
+							currentPage={currentPage}
+							onPageChange={handlePageChangeWithNavigation}
+							onClearSearch={handleClearSearch}
+							ref={artistPaginationRef}
+						/>
+					)}
+
+				{searchType === 'album' &&
+					albumsData &&
+					albumsData.albums.items.length > 0 && (
+						<AlbumResults
+							searchQuery={searchQuery}
+							albumsData={albumsData}
+							currentPage={currentPage}
+							onPageChange={handlePageChangeWithNavigation}
+							onClearSearch={handleClearSearch}
+							ref={albumPaginationRef}
+						/>
+					)}
+
+				{searchType === 'artist' &&
+					artistsData &&
+					artistsData.artists.items.length === 0 &&
+					searchQuery &&
+					!isLoadingArtists && (
+						<EmptyState searchType="artist" type="no-results" />
+					)}
+
+				{searchType === 'album' &&
+					albumsData &&
+					albumsData.albums.items.length === 0 &&
+					searchQuery &&
+					!isLoadingAlbums && (
+						<EmptyState searchType="album" type="no-results" />
+					)}
+
+				{!searchQuery && <EmptyState type="welcome" />}
+
+				{selectedArtist && <AlbumsList artist={selectedArtist} />}
+			</main>
+		</div>
+	)
+}
+
+export default function HomePage() {
+	return (
+		<Suspense
+			fallback={
+				<div className="min-h-screen bg-gray-50 flex items-center justify-center">
+					<div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
+				</div>
+			}
+		>
+			<SpotifyApp />
+		</Suspense>
+	)
 }
