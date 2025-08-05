@@ -32,7 +32,7 @@ const AlbumResults = forwardRef<HTMLDivElement, AlbumResultsProps>(
 						offset={albumsData.albums.offset}
 						itemsLength={albumsData.albums.items.length}
 						total={albumsData.albums.total}
-						itemType="álbuns"
+						itemType="albums"
 					/>
 
 					<Pagination

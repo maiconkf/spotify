@@ -7,9 +7,11 @@ import TrackItem from './TrackItem'
 import ShowMoreButton from './ShowMoreButton'
 import TopTracksLoading from './TopTracksLoading'
 import TopTracksEmptyState from './TopTracksEmptyState'
+import { useI18n } from '@/contexts/I18nContext'
 
 export default function ArtistTopTracks({ artistId }: ArtistTopTracksProps) {
 	const [showAll, setShowAll] = useState(false)
+	const { t } = useI18n()
 	const {
 		data: topTracksData,
 		isLoading,
@@ -19,15 +21,10 @@ export default function ArtistTopTracks({ artistId }: ArtistTopTracksProps) {
 	if (isLoading) return <TopTracksLoading />
 
 	if (error)
-		return (
-			<TopTracksEmptyState
-				message="Erro ao carregar as principais faixas"
-				isError={true}
-			/>
-		)
+		return <TopTracksEmptyState message={t('error.subtitle')} isError={true} />
 
 	if (!topTracksData?.tracks?.length)
-		return <TopTracksEmptyState message="Nenhuma faixa encontrada" />
+		return <TopTracksEmptyState message={t('artist.noTopTracks')} />
 
 	const tracks = topTracksData.tracks
 	const displayedTracks = showAll ? tracks : tracks.slice(0, 5)
@@ -36,7 +33,7 @@ export default function ArtistTopTracks({ artistId }: ArtistTopTracksProps) {
 	return (
 		<div className="bg-white rounded-lg shadow-md p-6">
 			<h2 className="text-xl font-bold text-gray-900 mb-4">
-				Principais Faixas
+				{t('artist.topTracks')}
 			</h2>
 
 			<div className="space-y-1 relative">

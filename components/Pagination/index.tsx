@@ -46,7 +46,7 @@ export default function Pagination({
 	const visiblePages = getVisiblePages()
 
 	return (
-		<div className="flex items-center justify-center space-x-2 mt-8">
+		<div className="flex items-center justify-center space-x-2 mt-6 sm:mt-8">
 			<button
 				onClick={() => onPageChange(currentPage - 1)}
 				disabled={currentPage === 1}

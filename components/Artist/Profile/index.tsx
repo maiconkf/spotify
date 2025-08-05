@@ -3,11 +3,14 @@
 import Image from 'next/image'
 import { Music, Users, ExternalLink } from 'lucide-react'
 import { ArtistProfileProps } from '@/types'
+import { useI18n } from '@/contexts/I18nContext'
 
 export default function ArtistProfile({
 	artist,
 	onOpenSpotify,
 }: ArtistProfileProps) {
+	const { t } = useI18n()
+
 	return (
 		<div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
 			<div className="p-8">
@@ -39,12 +42,14 @@ export default function ArtistProfile({
 							<div className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full">
 								<Users className="h-5 w-5 text-gray-600" />
 								<span className="text-gray-700">
-									{artist.followers?.total.toLocaleString()} seguidores
+									{t('artist.followers', {
+										count: artist.followers?.total.toLocaleString(),
+									})}
 								</span>
 							</div>
 							<div className="bg-green-100 px-4 py-2 rounded-full">
 								<span className="text-green-800 font-medium">
-									Popularidade: {artist.popularity}/100
+									{t('artistProfile.popularity')}: {artist.popularity}/100
 								</span>
 							</div>
 						</div>
@@ -52,7 +57,7 @@ export default function ArtistProfile({
 						{artist.genres && artist.genres.length > 0 && (
 							<div className="mb-6">
 								<h3 className="text-lg font-semibold text-gray-900 mb-2">
-									Gêneros:
+									{t('artistProfile.genres')}:
 								</h3>
 								<div className="flex flex-wrap gap-2 justify-center md:justify-start">
 									{artist.genres.map((genre, index) => (
@@ -73,7 +78,7 @@ export default function ArtistProfile({
 								className="flex items-center gap-2 bg-green-600 cursor-pointer text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors mx-auto md:mx-0"
 							>
 								<ExternalLink className="h-5 w-5" />
-								Abrir no Spotify
+								{t('artistProfile.openOnSpotify')}
 							</button>
 						)}
 					</div>

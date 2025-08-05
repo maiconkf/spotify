@@ -1,8 +1,10 @@
 import { Calendar, ExternalLink, Music } from 'lucide-react'
 import Image from 'next/image'
 import { AlbumCardProps } from '@/types'
+import { useI18n } from '@/contexts/I18nContext'
 
 export default function AlbumCard({ album }: AlbumCardProps) {
+	const { t } = useI18n()
 	const imageUrl =
 		album.images[0]?.url ??
 		`https://placehold.co/640x640?text=${encodeURIComponent(album.name)}`
@@ -36,7 +38,9 @@ export default function AlbumCard({ album }: AlbumCardProps) {
 					{album.name}
 				</h3>
 
-				<p className="text-gray-600 mb-3 line-clamp-1">por {artistNames}</p>
+				<p className="text-gray-600 mb-3 line-clamp-1">
+					{t('album.artist', { artist: artistNames })}
+				</p>
 
 				<div className="flex items-center gap-4 mb-3 text-sm text-gray-600">
 					<div className="flex items-center gap-1">
@@ -45,7 +49,7 @@ export default function AlbumCard({ album }: AlbumCardProps) {
 					</div>
 					<div className="flex items-center gap-1">
 						<Music className="h-4 w-4" />
-						<span>{album.total_tracks} faixas</span>
+						<span>{t('album.tracks', { count: album.total_tracks })}</span>
 					</div>
 				</div>
 
@@ -56,7 +60,7 @@ export default function AlbumCard({ album }: AlbumCardProps) {
 
 					<button
 						className="p-2 text-gray-400 hover:text-green-600 cursor-pointer transition-colors"
-						title="Abrir no Spotify"
+						title={t('artistProfile.openOnSpotify')}
 					>
 						<ExternalLink className="h-4 w-4" />
 					</button>

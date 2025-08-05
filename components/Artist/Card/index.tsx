@@ -2,12 +2,16 @@ import { Users, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArtistCardProps } from '@/types'
+import { useI18n } from '@/contexts/I18nContext'
 
 export default function ArtistCard({ artist }: ArtistCardProps) {
+	const { t, language } = useI18n()
 	const imageUrl =
 		artist.images[0]?.url ??
 		`https://placehold.co/640x640?text=${encodeURIComponent(artist.name)}`
-	const followersCount = artist.followers.total.toLocaleString('pt-BR')
+
+	const locale = language === 'pt-br' ? 'pt-BR' : 'en-US'
+	const followersCount = artist.followers.total.toLocaleString(locale)
 
 	const handleOpenSpotifyLink = (e: React.MouseEvent) => {
 		e.preventDefault()
@@ -42,7 +46,7 @@ export default function ArtistCard({ artist }: ArtistCardProps) {
 				<div className="flex items-center gap-4 mb-3 text-sm text-gray-600">
 					<div className="flex items-center gap-1">
 						<Users className="h-4 w-4" />
-						<span>{followersCount} seguidores</span>
+						<span>{t('artist.followers', { count: followersCount })}</span>
 					</div>
 					<div className="flex items-center gap-1">
 						<div className="w-2 h-2 rounded-full bg-green-500"></div>
@@ -72,7 +76,7 @@ export default function ArtistCard({ artist }: ArtistCardProps) {
 
 				<div className="flex justify-between items-center">
 					<button className="px-4 py-2 bg-green-600 hover:bg-green-700 cursor-pointer text-white text-sm rounded-lg transition-colors">
-						Ver Álbuns
+						{t('artist.albums')}
 					</button>
 
 					<button

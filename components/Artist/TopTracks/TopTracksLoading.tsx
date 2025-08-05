@@ -1,8 +1,12 @@
+import { useI18n } from '@/contexts/I18nContext'
+
 export default function TopTracksLoading() {
+	const { t } = useI18n()
+
 	return (
 		<div className="bg-white rounded-lg shadow-md p-6">
 			<h2 className="text-xl font-bold text-gray-900 mb-4">
-				Principais Faixas
+				{t('artist.topTracks')}
 			</h2>
 			<div className="space-y-3">
 				{[...Array(5)].map((_, i) => (

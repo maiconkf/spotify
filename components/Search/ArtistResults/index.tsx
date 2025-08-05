@@ -32,7 +32,7 @@ const ArtistResults = forwardRef<HTMLDivElement, ArtistResultsProps>(
 						offset={artistsData.artists.offset}
 						itemsLength={artistsData.artists.items.length}
 						total={artistsData.artists.total}
-						itemType="artistas"
+						itemType="artists"
 					/>
 
 					<Pagination

@@ -58,7 +58,7 @@ export interface ResultsCounterProps {
 	offset: number
 	itemsLength: number
 	total: number
-	itemType: 'álbuns' | 'artistas'
+	itemType: 'albums' | 'artists'
 }
 
 export interface ArtistResultsProps extends SearchResultsData {

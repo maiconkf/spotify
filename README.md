@@ -5,11 +5,14 @@ Este é um projeto [Next.js](https://nextjs.org) para busca de artistas e álbun
 ## ✨ Funcionalidades
 
 - 🔍 **Busca de artistas**: Pesquise artistas por nome
-- � **Paginação inteligente**: Navegue pelos resultados com paginação completa
-- �👤 **Página individual do artista**: Visualize detalhes completos, incluindo:
+- 📄 **Paginação inteligente**: Navegue pelos resultados com paginação completa
+- 👤 **Página individual do artista**: Visualize detalhes completos, incluindo:
   - Informações do artista (seguidores, popularidade, gêneros)
   - Lista completa de álbuns
+  - Top tracks do artista
   - Links diretos para o Spotify
+- 🌍 **Sistema de internacionalização (i18n)**: Interface em português e inglês
+- 🔄 **Troca de idioma**: Switcher de idioma disponível em todas as páginas
 - 🔐 **Autenticação automática**: Sistema de tokens gerenciado automaticamente
 - 📱 **Interface responsiva**: Funciona perfeitamente em qualquer dispositivo
 - ⚡ **Performance otimizada**: Carregamento rápido com Next.js e React Query
@@ -71,6 +74,33 @@ O projeto utiliza o fluxo **Client Credentials** do Spotify API:
 - Renovação automática quando expiram
 - Interceptors do Axios para incluir automaticamente headers de autorização
 
+### Sistema de Internacionalização (i18n)
+
+O projeto implementa um sistema completo de internacionalização com as seguintes características:
+
+- **Idiomas suportados**: Português brasileiro (pt-br) e Inglês (en)
+- **Troca dinâmica**: LanguageSwitcher disponível em todas as páginas
+- **Tokenização**: Sistema de interpolação de variáveis com sintaxe `{{variável}}`
+- **Contexto global**: Estado do idioma gerenciado via React Context
+- **Traduções tipadas**: Interface TypeScript para garantir consistência
+- **Persistência**: Idioma selecionado mantido durante a navegação
+
+#### Estrutura do i18n:
+
+```
+/lib/i18n/
+  index.ts              # Motor de tradução com tokenização
+  /locales/
+    pt-br.ts           # Traduções em português
+    en.ts              # Traduções em inglês
+/contexts/
+  I18nContext.tsx      # Contexto de internacionalização
+/hooks/
+  useLocalization.ts   # Hook para uso das traduções
+/components/
+  LanguageSwitcher/    # Componente de troca de idioma
+```
+
 ### Estrutura de pastas
 
 ```
@@ -82,43 +112,53 @@ O projeto utiliza o fluxo **Client Credentials** do Spotify API:
   /artist/[id]/
     page.tsx                # Página individual do artista
 /components
-  /Album/Card/              # Card de álbum
+  /Album/
+    /Card/                  # Card individual de álbum
+    /List/                  # Lista/grid de álbuns
   /AppHeader/               # Cabeçalho da aplicação
   /Artist/
-    AlbumsSection/          # Seção de álbuns do artista
-    Card/                   # Card do artista nos resultados
-    Header/                 # Cabeçalho da página do artista
-    List/                   # Lista de artistas
-    LoadingState/           # Estado de carregamento
-    Profile/                # Perfil do artista
-    TopTracks/              # Top tracks do artista
+    /AlbumsSection/         # Seção de álbuns do artista
+    /Card/                  # Card do artista nos resultados
+    /Header/                # Cabeçalho da página do artista
+    /LoadingState/          # Estado de carregamento
+    /Profile/               # Perfil do artista
+    /TopTracks/             # Top tracks do artista
+      ShowMoreButton.tsx    # Botão para mostrar mais tracks
+      TopTracksEmptyState.tsx # Estado vazio dos top tracks
+      TopTracksLoading.tsx  # Loading dos top tracks
+      TrackItem.tsx         # Item individual de track
   /EmptyState/              # Estado vazio
   /ErrorState/              # Estado de erro
   /Form/                    # Componentes de formulário
+  /LanguageSwitcher/        # Componente de troca de idioma
   /LoadingState/            # Estado de carregamento geral
   /Pagination/              # Componente de paginação
   /Search/                  # Componentes de busca
-    AlbumResults/           # Resultados de álbuns
-    ArtistResults/          # Resultados de artistas
-    ResultsCounter/         # Contador de resultados
-    SearchFilters/          # Filtros de busca
-    SearchResultsHeader/    # Cabeçalho dos resultados
-  /Album/
-    /Card/                # Card individual de álbum
-    /List/                # Lista/grid de álbuns usando AlbumCard
+    /AlbumResults/          # Resultados de álbens
+    /ArtistResults/         # Resultados de artistas
+    /ResultsCounter/        # Contador de resultados
+    /SearchFilters/         # Filtros de busca
+    /SearchResultsHeader/   # Cabeçalho dos resultados
 /config
   api.ts                    # Configuração do Axios
 /contexts
   AppStateProvider.tsx      # Provider do estado da aplicação
   ArtistContext.tsx         # Contexto do artista
+  I18nContext.tsx           # Contexto de internacionalização
 /hooks
   useArtistPage.ts          # Hook para página do artista
+  useLocalization.ts        # Hook de internacionalização
   useNavigation.ts          # Hook de navegação
   usePrefetchObserver.ts    # Hook de prefetch
   useProgrammaticScroll.ts  # Hook de scroll programático
   useSpotify.ts             # Hooks para API do Spotify
   useUrlInitialization.ts   # Hook de inicialização de URL
 /lib
+  /i18n/                    # Sistema de internacionalização
+    index.ts                # Motor de tradução com tokenização
+    /locales/
+      pt-br.ts              # Traduções em português brasileiro
+      en.ts                 # Traduções em inglês
   spotifyAuth.ts            # Gerenciamento de autenticação
 /providers
   /Providers/               # Providers do React Query e contextos
@@ -139,7 +179,11 @@ O projeto utiliza o fluxo **Client Credentials** do Spotify API:
 - ✅ Navegação para página individual do artista
 - ✅ Exibição de informações detalhadas do artista
 - ✅ Lista de álbuns do artista
+- ✅ Top tracks do artista com reprodução no Spotify
 - ✅ Links diretos para o Spotify
+- ✅ Sistema completo de internacionalização (PT-BR/EN)
+- ✅ Troca de idioma dinâmica em todas as páginas
+- ✅ Tokenização de traduções com interpolação de variáveis
 - ✅ Interface moderna e responsiva
 - ✅ Tratamento de erros e estados de loading
 - ✅ Autenticação automática com a API do Spotify

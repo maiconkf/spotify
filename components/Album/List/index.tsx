@@ -3,18 +3,19 @@
 import { Music } from 'lucide-react'
 import { SimpleAlbumsListProps } from '@/types'
 import AlbumCard from '@/components/Album/Card'
+import { useI18n } from '@/contexts/I18nContext'
 
 export default function AlbumsList({ albums }: SimpleAlbumsListProps) {
+	const { t } = useI18n()
+
 	if (albums.length === 0) {
 		return (
 			<div className="text-center py-12">
 				<Music className="h-16 w-16 text-gray-400 mx-auto mb-4" />
 				<h3 className="text-xl font-semibold text-gray-900 mb-2">
-					Nenhum álbum encontrado
+					{t('artist.noAlbums')}
 				</h3>
-				<p className="text-gray-600">
-					Este artista não possui álbuns disponíveis no momento.
-				</p>
+				<p className="text-gray-600">{t('albumsList.noAlbumsDescription')}</p>
 			</div>
 		)
 	}

@@ -121,7 +121,7 @@ function SpotifyApp() {
 				)}
 			</AppHeader>
 
-			<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+			<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 				{errorMessage && <ErrorState searchType={searchType} />}
 
 				{isLoading && searchQuery && <LoadingState searchType={searchType} />}
