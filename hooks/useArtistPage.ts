@@ -47,18 +47,19 @@ export function useArtistPage(artistId: string) {
 		const albumsSection = document.getElementById('albums-section')
 
 		if (albumsSection) {
-			setTimeout(
-				() => albumsSection.scrollIntoView({ behavior: 'smooth' }),
-				100
-			)
+			albumsSection.scrollIntoView({ behavior: 'smooth' })
 		}
 	}
 
 	const handlePageChange = (page: number) => {
 		setCurrentPage(page)
-
-		handleScrollToAlbums()
 	}
+
+	useEffect(() => {
+		if (albumsData) {
+			handleScrollToAlbums()
+		}
+	}, [albumsData])
 
 	const openSpotifyLink = (url: string) => {
 		window.open(url, '_blank')
