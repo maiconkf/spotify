@@ -1,5 +1,5 @@
 import { ResultsCounterProps } from '@/types'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 const ResultsCounter = ({
 	offset,
@@ -7,7 +7,7 @@ const ResultsCounter = ({
 	total,
 	itemType,
 }: ResultsCounterProps) => {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	const typeText =
 		itemType === 'artists' ? t('results.artists') : t('results.albums')

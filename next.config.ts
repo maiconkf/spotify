@@ -1,21 +1,21 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "i.scdn.co",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "placehold.co",
-        pathname: "/**",
-      },
-    ],
-    dangerouslyAllowSVG: true,
-  },
-};
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'i.scdn.co',
+				pathname: '/**',
+			},
+			{
+				protocol: 'https',
+				hostname: 'placehold.co',
+				pathname: '/**',
+			},
+		],
+		dangerouslyAllowSVG: true,
+	},
+}
 
-export default nextConfig;
+export default nextConfig

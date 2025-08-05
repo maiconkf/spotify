@@ -1,12 +1,12 @@
 import { Users, Disc } from 'lucide-react'
 import { SearchFiltersProps } from '@/types'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function SearchFilters({
 	searchType,
 	onFilterChange,
 }: SearchFiltersProps) {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	return (
 		<div className="flex justify-center mt-4">

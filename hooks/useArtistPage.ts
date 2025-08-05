@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import { SpotifyArtist } from '@/types/spotify'
 import { useArtistContext } from '@/contexts/ArtistContext'
 import {
@@ -11,6 +11,8 @@ import {
 
 export function useArtistPage(artistId: string) {
 	const router = useRouter()
+	const params = useParams()
+	const locale = (params?.locale as string) || 'pt-BR'
 	const { getArtist, setArtist } = useArtistContext()
 	const [artistData, setArtistData] = useState<SpotifyArtist | null>(null)
 	const [currentPage, setCurrentPage] = useState(1)
@@ -41,7 +43,28 @@ export function useArtistPage(artistId: string) {
 	}, [artistId, contextArtist, fetchedArtist, setArtist])
 
 	const handleBack = () => {
-		router.back()
+		const savedSearchState =
+			typeof window !== 'undefined'
+				? sessionStorage.getItem('searchState')
+				: null
+
+		if (savedSearchState) {
+			try {
+				const { query, page, type } = JSON.parse(savedSearchState)
+				const urlParams = new URLSearchParams()
+				urlParams.set('q', query)
+				urlParams.set('page', page.toString())
+				urlParams.set('type', type)
+
+				const searchURL = `/${locale}?${urlParams.toString()}`
+				router.push(searchURL)
+				return
+			} catch (error) {
+				console.error('Erro ao restaurar estado de pesquisa:', error)
+			}
+		}
+
+		router.push(`/${locale}`)
 	}
 
 	const handleScrollToAlbums = () => {
@@ -69,7 +92,7 @@ export function useArtistPage(artistId: string) {
 	}
 
 	const goHome = () => {
-		router.push('/')
+		router.push(`/${locale}`)
 	}
 
 	return {

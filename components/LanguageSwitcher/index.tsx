@@ -1,20 +1,20 @@
 'use client'
 
-import { useI18n } from '@/contexts/I18nContext'
+import { useI18n, type Locale } from '@/hooks/useI18n'
 
 export default function LanguageSwitcher() {
-	const { language, setLanguage } = useI18n()
+	const { locale, changeLocale } = useI18n()
 
-	const handleLanguageChange = (newLanguage: 'pt-br' | 'en') => {
-		setLanguage(newLanguage)
+	const handleLanguageChange = (newLocale: Locale) => {
+		changeLocale(newLocale)
 	}
 
 	return (
 		<div className="flex items-center gap-1 text-sm text-gray-600">
 			<button
-				onClick={() => handleLanguageChange('pt-br')}
+				onClick={() => handleLanguageChange('pt-BR')}
 				className={`px-2 py-1 rounded transition-colors ${
-					language === 'pt-br'
+					locale === 'pt-BR'
 						? 'bg-green-600 text-white'
 						: 'hover:bg-gray-100 cursor-pointer'
 				}`}
@@ -25,7 +25,7 @@ export default function LanguageSwitcher() {
 			<button
 				onClick={() => handleLanguageChange('en')}
 				className={`px-2 py-1 rounded transition-colors ${
-					language === 'en'
+					locale === 'en'
 						? 'bg-green-600 text-white'
 						: 'hover:bg-gray-100 cursor-pointer'
 				}`}

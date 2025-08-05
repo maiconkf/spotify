@@ -1,27 +1,11 @@
 'use client'
 
-import React, {
-	createContext,
-	useContext,
-	useState,
-	useEffect,
-	ReactNode,
-} from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import { Language, translate as translateText } from '@/lib/i18n'
 import { translationConfig } from '@/lib/i18n/config'
-
-interface I18nContextType {
-	language: Language
-	setLanguage: (language: Language) => void
-	t: (key: string, tokens?: Record<string, string | number>) => string
-	supportedLanguages: Language[]
-}
+import { I18nContextType, I18nProviderProps } from '@/types/i18n'
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined)
-
-interface I18nProviderProps {
-	children: ReactNode
-}
 
 export function I18nProvider({ children }: I18nProviderProps) {
 	const [language, setLanguageState] = useState<Language>(

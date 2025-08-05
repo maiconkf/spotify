@@ -1,27 +1,37 @@
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import { UpdateURLParams } from '@/types'
 
 export const useNavigation = () => {
 	const router = useRouter()
+	const params = useParams()
+	const locale = (params?.locale as string) || 'pt-BR'
 
 	const updateURL = ({ query, page, type }: UpdateURLParams) => {
-		const params = new URLSearchParams()
+		const urlParams = new URLSearchParams()
 		if (query) {
-			params.set('q', query)
-			params.set('page', page.toString())
-			params.set('type', type)
+			urlParams.set('q', query)
+			urlParams.set('page', page.toString())
+			urlParams.set('type', type)
 		}
 
-		const newURL = params.toString() ? `/?${params.toString()}` : '/'
+		const newURL = urlParams.toString()
+			? `/${locale}?${urlParams.toString()}`
+			: `/${locale}`
 		router.replace(newURL)
 	}
 
 	const goHome = () => {
-		router.replace('/')
+		router.replace(`/${locale}`)
+	}
+
+	const goToArtist = (artistId: string) => {
+		router.push(`/${locale}/artist/${artistId}`)
 	}
 
 	return {
 		updateURL,
 		goHome,
+		goToArtist,
+		locale,
 	}
 }

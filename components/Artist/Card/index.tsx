@@ -1,17 +1,21 @@
 import { Users, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { ArtistCardProps } from '@/types'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
+import { useI18n } from '@/hooks/useI18n'
 
 export default function ArtistCard({ artist }: ArtistCardProps) {
-	const { t, language } = useI18n()
+	const { t } = useTranslations()
+	const { locale } = useI18n()
+	const router = useRouter()
+	const searchParams = useSearchParams()
 	const imageUrl =
 		artist.images[0]?.url ??
 		`https://placehold.co/640x640?text=${encodeURIComponent(artist.name)}`
 
-	const locale = language === 'pt-br' ? 'pt-BR' : 'en-US'
-	const followersCount = artist.followers.total.toLocaleString(locale)
+	const browserLocale = locale === 'pt-BR' ? 'pt-BR' : 'en-US'
+	const followersCount = artist.followers.total.toLocaleString(browserLocale)
 
 	const handleOpenSpotifyLink = (e: React.MouseEvent) => {
 		e.preventDefault()
@@ -19,10 +23,27 @@ export default function ArtistCard({ artist }: ArtistCardProps) {
 		window.open(artist.external_urls.spotify, '_blank')
 	}
 
+	const handleCardClick = () => {
+		const query = searchParams.get('q')
+		const page = searchParams.get('page') || '1'
+		const type = searchParams.get('type') || 'artist'
+
+		if (query) {
+			const searchState = {
+				query,
+				page,
+				type,
+			}
+			sessionStorage.setItem('searchState', JSON.stringify(searchState))
+		}
+
+		router.push(`/${locale}/artist/${artist.id}`)
+	}
+
 	return (
-		<Link
-			className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all border-2 border-transparent hover:border-gray-200"
-			href={`/artist/${artist.id}`}
+		<div
+			onClick={handleCardClick}
+			className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all border-2 border-transparent hover:border-gray-200 cursor-pointer"
 		>
 			<div className="p-4">
 				<div className="relative w-full aspect-square mb-4 overflow-hidden rounded-lg bg-gray-100">
@@ -87,6 +108,6 @@ export default function ArtistCard({ artist }: ArtistCardProps) {
 					</button>
 				</div>
 			</div>
-		</Link>
+		</div>
 	)
 }

@@ -3,17 +3,18 @@
 import { useState } from 'react'
 import { Search } from 'lucide-react'
 import { SearchFormProps } from '@/types'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function SearchForm({ onSearch, isLoading }: SearchFormProps) {
 	const [query, setQuery] = useState('')
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 
-		if (query.trim()) {
-			onSearch(query.trim())
+		const trimmedQuery = query.trim()
+		if (trimmedQuery && trimmedQuery.length >= 3) {
+			onSearch(trimmedQuery)
 		}
 	}
 
@@ -33,7 +34,7 @@ export default function SearchForm({ onSearch, isLoading }: SearchFormProps) {
 				/>
 				<button
 					type="submit"
-					disabled={isLoading || !query.trim()}
+					disabled={isLoading || !query.trim() || query.trim().length < 3}
 					className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-4 py-3 rounded-r-lg transition-colors absolute inset-y-0 right-0 flex items-center cursor-pointer"
 				>
 					{isLoading ? t('search.searching') : t('search.button')}

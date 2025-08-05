@@ -1,8 +1,8 @@
 import { ErrorStateProps } from '@/types'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function ErrorState({}: ErrorStateProps) {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	return (
 		<div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">

@@ -3,10 +3,10 @@
 import { ArrowLeft } from 'lucide-react'
 import { ArtistHeaderProps } from '@/types'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function ArtistHeader({ onBack }: ArtistHeaderProps) {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	return (
 		<header className="bg-white shadow-sm border-b border-gray-200">
