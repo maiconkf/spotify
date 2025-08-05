@@ -19,10 +19,6 @@ const initialState: AppState = {
 		searchType: 'artist',
 		lastError: null,
 	},
-	navigation: {
-		previousPage: null,
-		breadcrumbs: [],
-	},
 }
 
 function appReducer(state: AppState, action: AppAction): AppState {
@@ -89,36 +85,6 @@ function appReducer(state: AppState, action: AppAction): AppState {
 				},
 			}
 
-		case 'SET_PREVIOUS_PAGE':
-			return {
-				...state,
-				navigation: {
-					...state.navigation,
-					previousPage: action.payload.page,
-				},
-			}
-
-		case 'ADD_BREADCRUMB':
-			return {
-				...state,
-				navigation: {
-					...state.navigation,
-					breadcrumbs: [
-						...state.navigation.breadcrumbs,
-						{ label: action.payload.label, path: action.payload.path },
-					],
-				},
-			}
-
-		case 'CLEAR_BREADCRUMBS':
-			return {
-				...state,
-				navigation: {
-					...state.navigation,
-					breadcrumbs: [],
-				},
-			}
-
 		default:
 			return state
 	}
@@ -151,14 +117,6 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
 
 		setError: (error: string | null) =>
 			dispatch({ type: 'SET_ERROR', payload: { error } }),
-
-		setPreviousPage: (page: string | null) =>
-			dispatch({ type: 'SET_PREVIOUS_PAGE', payload: { page } }),
-
-		addBreadcrumb: (label: string, path: string) =>
-			dispatch({ type: 'ADD_BREADCRUMB', payload: { label, path } }),
-
-		clearBreadcrumbs: () => dispatch({ type: 'CLEAR_BREADCRUMBS' }),
 	}
 
 	const contextValue: AppContextType = {
@@ -180,16 +138,6 @@ export function useAppState() {
 	return context
 }
 
-export function useArtistState() {
-	const { state, actions } = useAppState()
-	return {
-		artists: state.artists,
-		setArtist: actions.setArtist,
-		getArtist: actions.getArtist,
-		clearAllArtists: actions.clearArtists,
-	}
-}
-
 export function useUIState() {
 	const { state, actions } = useAppState()
 	return {
@@ -199,15 +147,5 @@ export function useUIState() {
 		setCurrentPage: actions.setCurrentPage,
 		setSearchType: actions.setSearchType,
 		setError: actions.setError,
-	}
-}
-
-export function useNavigationState() {
-	const { state, actions } = useAppState()
-	return {
-		navigation: state.navigation,
-		setPreviousPage: actions.setPreviousPage,
-		addBreadcrumb: actions.addBreadcrumb,
-		clearBreadcrumbs: actions.clearBreadcrumbs,
 	}
 }

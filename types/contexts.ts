@@ -10,10 +10,6 @@ export interface AppState {
 		searchType: SearchType
 		lastError: string | null
 	}
-	navigation: {
-		previousPage: string | null
-		breadcrumbs: Array<{ label: string; path: string }>
-	}
 }
 
 export type AppAction =
@@ -24,9 +20,6 @@ export type AppAction =
 	| { type: 'SET_CURRENT_PAGE'; payload: { page: number } }
 	| { type: 'SET_SEARCH_TYPE'; payload: { type: SearchType } }
 	| { type: 'SET_ERROR'; payload: { error: string | null } }
-	| { type: 'SET_PREVIOUS_PAGE'; payload: { page: string | null } }
-	| { type: 'ADD_BREADCRUMB'; payload: { label: string; path: string } }
-	| { type: 'CLEAR_BREADCRUMBS' }
 
 export interface AppContextType {
 	state: AppState
@@ -40,9 +33,6 @@ export interface AppContextType {
 		setCurrentPage: (page: number) => void
 		setSearchType: (type: SearchType) => void
 		setError: (error: string | null) => void
-		setPreviousPage: (page: string | null) => void
-		addBreadcrumb: (label: string, path: string) => void
-		clearBreadcrumbs: () => void
 	}
 }
 

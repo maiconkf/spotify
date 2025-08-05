@@ -147,40 +147,6 @@ describe('AppStateProvider', () => {
 		})
 	})
 
-	describe('Navigation State Management', () => {
-		it('should manage previous page', () => {
-			const { result } = renderHook(() => useAppState(), { wrapper })
-
-			act(() => {
-				result.current.actions.setPreviousPage('/artist/123')
-			})
-
-			expect(result.current.state.navigation.previousPage).toBe('/artist/123')
-		})
-
-		it('should manage breadcrumbs', () => {
-			const { result } = renderHook(() => useAppState(), { wrapper })
-
-			act(() => {
-				result.current.actions.addBreadcrumb('Home', '/')
-				result.current.actions.addBreadcrumb('Search', '/search')
-				result.current.actions.addBreadcrumb('Artist', '/artist/1')
-			})
-
-			expect(result.current.state.navigation.breadcrumbs).toEqual([
-				{ label: 'Home', path: '/' },
-				{ label: 'Search', path: '/search' },
-				{ label: 'Artist', path: '/artist/1' },
-			])
-
-			act(() => {
-				result.current.actions.clearBreadcrumbs()
-			})
-
-			expect(result.current.state.navigation.breadcrumbs).toEqual([])
-		})
-	})
-
 	describe('Initial State', () => {
 		it('should have correct initial state', () => {
 			const { result } = renderHook(() => useAppState(), { wrapper })
@@ -193,10 +159,6 @@ describe('AppStateProvider', () => {
 					currentPage: 1,
 					searchType: 'artist',
 					lastError: null,
-				},
-				navigation: {
-					previousPage: null,
-					breadcrumbs: [],
 				},
 			})
 		})
