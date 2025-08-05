@@ -58,6 +58,7 @@ function ArtistPageContent() {
 						currentPage={currentPage}
 						isLoading={isAlbumsLoading}
 						error={albumsError}
+						artistName={artistData.name}
 						onPageChange={handlePageChange}
 					/>
 				)}
