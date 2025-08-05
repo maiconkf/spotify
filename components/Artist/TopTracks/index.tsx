@@ -7,11 +7,11 @@ import TrackItem from './TrackItem'
 import ShowMoreButton from './ShowMoreButton'
 import TopTracksLoading from './TopTracksLoading'
 import TopTracksEmptyState from './TopTracksEmptyState'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function ArtistTopTracks({ artistId }: ArtistTopTracksProps) {
 	const [showAll, setShowAll] = useState(false)
-	const { t } = useI18n()
+	const { t } = useTranslations()
 	const {
 		data: topTracksData,
 		isLoading,

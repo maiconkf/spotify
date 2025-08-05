@@ -6,6 +6,9 @@ jest.mock('next/navigation', () => ({
 	useRouter: () => ({
 		replace: mockReplace,
 	}),
+	useParams: () => ({
+		locale: 'pt-BR',
+	}),
 }))
 
 describe('useNavigation', () => {
@@ -23,7 +26,9 @@ describe('useNavigation', () => {
 				type: 'artist',
 			})
 
-			expect(mockReplace).toHaveBeenCalledWith('/?q=Beatles&page=2&type=artist')
+			expect(mockReplace).toHaveBeenCalledWith(
+				'/pt-BR?q=Beatles&page=2&type=artist'
+			)
 		})
 
 		it('should handle empty query by navigating to home', () => {
@@ -35,7 +40,7 @@ describe('useNavigation', () => {
 				type: 'artist',
 			})
 
-			expect(mockReplace).toHaveBeenCalledWith('/')
+			expect(mockReplace).toHaveBeenCalledWith('/pt-BR')
 		})
 
 		it('should handle album search type', () => {
@@ -48,7 +53,7 @@ describe('useNavigation', () => {
 			})
 
 			expect(mockReplace).toHaveBeenCalledWith(
-				'/?q=Abbey+Road&page=1&type=album'
+				'/pt-BR?q=Abbey+Road&page=1&type=album'
 			)
 		})
 
@@ -62,7 +67,7 @@ describe('useNavigation', () => {
 			})
 
 			expect(mockReplace).toHaveBeenCalledWith(
-				'/?q=AC%2FDC+%26+Friends&page=1&type=artist'
+				'/pt-BR?q=AC%2FDC+%26+Friends&page=1&type=artist'
 			)
 		})
 	})
@@ -73,7 +78,7 @@ describe('useNavigation', () => {
 
 			result.current.goHome()
 
-			expect(mockReplace).toHaveBeenCalledWith('/')
+			expect(mockReplace).toHaveBeenCalledWith('/pt-BR')
 		})
 	})
 })

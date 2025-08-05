@@ -7,8 +7,8 @@ jest.mock('@/contexts/I18nContext', () => ({
 	useI18n: () => ({
 		t: (key: string) => {
 			const translations: Record<string, string> = {
-				'filters.artists': 'Artists',
-				'filters.albums': 'Albums',
+				'filters.artists': 'Artistas',
+				'filters.albums': 'Álbuns',
 			}
 			return translations[key] || key
 		},
@@ -43,8 +43,8 @@ describe('SearchFilters Component', () => {
 	it('should render both filter buttons', () => {
 		render(<SearchFilters {...defaultProps} />)
 
-		expect(screen.getByText('Artists')).toBeInTheDocument()
-		expect(screen.getByText('Albums')).toBeInTheDocument()
+		expect(screen.getByText('Artistas')).toBeInTheDocument()
+		expect(screen.getByText('Álbuns')).toBeInTheDocument()
 
 		expect(screen.getByTestId('users-icon')).toBeInTheDocument()
 		expect(screen.getByTestId('disc-icon')).toBeInTheDocument()
@@ -53,8 +53,8 @@ describe('SearchFilters Component', () => {
 	it('should highlight artist button when searchType is artist', () => {
 		render(<SearchFilters {...defaultProps} searchType="artist" />)
 
-		const artistButton = screen.getByText('Artists').closest('button')
-		const albumButton = screen.getByText('Albums').closest('button')
+		const artistButton = screen.getByText('Artistas').closest('button')
+		const albumButton = screen.getByText('Álbuns').closest('button')
 
 		expect(artistButton).toHaveClass('bg-white', 'text-gray-900', 'shadow-sm')
 		expect(artistButton).not.toHaveClass('text-gray-600', 'hover:text-gray-900')
@@ -70,8 +70,8 @@ describe('SearchFilters Component', () => {
 	it('should highlight album button when searchType is album', () => {
 		render(<SearchFilters {...defaultProps} searchType="album" />)
 
-		const artistButton = screen.getByText('Artists').closest('button')
-		const albumButton = screen.getByText('Albums').closest('button')
+		const artistButton = screen.getByText('Artistas').closest('button')
+		const albumButton = screen.getByText('Álbuns').closest('button')
 
 		expect(albumButton).toHaveClass('bg-white', 'text-gray-900', 'shadow-sm')
 		expect(albumButton).not.toHaveClass('text-gray-600', 'hover:text-gray-900')
@@ -87,7 +87,7 @@ describe('SearchFilters Component', () => {
 	it('should call onFilterChange with "artist" when artist button is clicked', () => {
 		render(<SearchFilters {...defaultProps} />)
 
-		const artistButton = screen.getByText('Artists')
+		const artistButton = screen.getByText('Artistas')
 		fireEvent.click(artistButton)
 
 		expect(mockOnFilterChange).toHaveBeenCalledWith('artist')
@@ -97,7 +97,7 @@ describe('SearchFilters Component', () => {
 	it('should call onFilterChange with "album" when album button is clicked', () => {
 		render(<SearchFilters {...defaultProps} />)
 
-		const albumButton = screen.getByText('Albums')
+		const albumButton = screen.getByText('Álbuns')
 		fireEvent.click(albumButton)
 
 		expect(mockOnFilterChange).toHaveBeenCalledWith('album')
@@ -107,8 +107,8 @@ describe('SearchFilters Component', () => {
 	it('should have correct button styling and structure', () => {
 		render(<SearchFilters {...defaultProps} />)
 
-		const artistButton = screen.getByText('Artists').closest('button')
-		const albumButton = screen.getByText('Albums').closest('button')
+		const artistButton = screen.getByText('Artistas').closest('button')
+		const albumButton = screen.getByText('Álbuns').closest('button')
 
 		expect(artistButton).toHaveClass(
 			'flex',
@@ -140,11 +140,11 @@ describe('SearchFilters Component', () => {
 		render(<SearchFilters {...defaultProps} />)
 
 		const outerContainer = screen
-			.getByText('Artists')
+			.getByText('Artistas')
 			.closest('div')?.parentElement
 		expect(outerContainer).toHaveClass('flex', 'justify-center', 'mt-4')
 
-		const innerContainer = screen.getByText('Artists').closest('div')
+		const innerContainer = screen.getByText('Artistas').closest('div')
 		expect(innerContainer).toHaveClass(
 			'flex',
 			'bg-gray-100',
@@ -166,8 +166,8 @@ describe('SearchFilters Component', () => {
 	it('should maintain accessibility with clickable buttons', () => {
 		render(<SearchFilters {...defaultProps} />)
 
-		const artistButton = screen.getByRole('button', { name: /artists/i })
-		const albumButton = screen.getByRole('button', { name: /albums/i })
+		const artistButton = screen.getByRole('button', { name: /artistas/i })
+		const albumButton = screen.getByRole('button', { name: /álbuns/i })
 
 		expect(artistButton).toBeInTheDocument()
 		expect(albumButton).toBeInTheDocument()
@@ -181,16 +181,16 @@ describe('SearchFilters Component', () => {
 			<SearchFilters {...defaultProps} searchType="artist" />
 		)
 
-		let artistButton = screen.getByText('Artists').closest('button')
-		let albumButton = screen.getByText('Albums').closest('button')
+		let artistButton = screen.getByText('Artistas').closest('button')
+		let albumButton = screen.getByText('Álbuns').closest('button')
 
 		expect(artistButton).toHaveClass('bg-white', 'text-gray-900', 'shadow-sm')
 		expect(albumButton).toHaveClass('text-gray-600', 'hover:text-gray-900')
 
 		rerender(<SearchFilters {...defaultProps} searchType="album" />)
 
-		artistButton = screen.getByText('Artists').closest('button')
-		albumButton = screen.getByText('Albums').closest('button')
+		artistButton = screen.getByText('Artistas').closest('button')
+		albumButton = screen.getByText('Álbuns').closest('button')
 
 		expect(albumButton).toHaveClass('bg-white', 'text-gray-900', 'shadow-sm')
 		expect(artistButton).toHaveClass('text-gray-600', 'hover:text-gray-900')

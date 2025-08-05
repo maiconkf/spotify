@@ -11,6 +11,10 @@ jest.mock('next/navigation', () => ({
 	useSearchParams: () => ({
 		get: jest.fn(),
 	}),
+	useParams: () => ({
+		locale: 'pt-BR',
+	}),
+	usePathname: () => '/pt-BR',
 }))
 
 process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID = 'test_client_id'

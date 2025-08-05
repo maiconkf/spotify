@@ -1,9 +1,9 @@
 import { Music } from 'lucide-react'
 import { EmptyStateProps } from '@/types'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function EmptyState({ searchType, type }: EmptyStateProps) {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	if (type === 'welcome') {
 		return (

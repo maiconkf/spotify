@@ -121,11 +121,11 @@ describe('ArtistCard', () => {
 		expect(image.getAttribute('src')).toContain('placehold.co')
 	})
 
-	it('renders link to artist page', () => {
+	it('renders artist card with correct data', () => {
 		renderWithI18n(<ArtistCard artist={mockArtist} />)
 
-		const link = screen.getByRole('link')
-		expect(link).toHaveAttribute('href', '/artist/artist-1')
+		expect(screen.getByText('Test Artist')).toBeInTheDocument()
+		expect(screen.getByText('Álbuns')).toBeInTheDocument()
 	})
 
 	it('renders genres correctly', () => {

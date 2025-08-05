@@ -1,10 +1,10 @@
 'use client'
 
 import { ArtistErrorStateProps } from '@/types'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export function ArtistLoadingSpinner() {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	return (
 		<div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -17,7 +17,7 @@ export function ArtistLoadingSpinner() {
 }
 
 export function ArtistErrorState({ error, onGoHome }: ArtistErrorStateProps) {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	return (
 		<div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -40,7 +40,7 @@ export function ArtistErrorState({ error, onGoHome }: ArtistErrorStateProps) {
 }
 
 export function AlbumsLoadingSpinner() {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	return (
 		<div className="text-center py-8">
@@ -51,7 +51,7 @@ export function AlbumsLoadingSpinner() {
 }
 
 export function AlbumsErrorState() {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	return (
 		<div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">

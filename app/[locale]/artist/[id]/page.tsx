@@ -48,21 +48,24 @@ function ArtistPageContent() {
 
 				{artistData && (
 					<div className="my-8">
-						<ArtistTopTracks artistId={artistData.id} />
+						<ArtistTopTracks artistId={artistId} />
 					</div>
 				)}
 
-				<ArtistAlbumsSection
-					artistName={artistData?.name}
-					albumsData={albumsData}
-					isLoading={isAlbumsLoading}
-					error={albumsError}
-					currentPage={currentPage}
-					onPageChange={handlePageChange}
-				/>
+				{artistData && (
+					<ArtistAlbumsSection
+						albumsData={albumsData}
+						currentPage={currentPage}
+						isLoading={isAlbumsLoading}
+						error={albumsError}
+						onPageChange={handlePageChange}
+					/>
+				)}
 			</main>
 		</div>
 	)
 }
 
-export default ArtistPageContent
+export default function ArtistPage() {
+	return <ArtistPageContent />
+}

@@ -1,8 +1,8 @@
 import { LoadingStateProps } from '@/types'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function LoadingState({ searchType }: LoadingStateProps) {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	const typeText =
 		searchType === 'artist' ? t('loading.artists') : t('loading.albums')

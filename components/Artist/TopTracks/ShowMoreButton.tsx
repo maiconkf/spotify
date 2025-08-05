@@ -1,13 +1,13 @@
 import { ChevronDown } from 'lucide-react'
 import { ShowMoreButtonProps } from '@/types/components'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function ShowMoreButton({
 	showAll,
 	onToggle,
 	hasMoreTracks,
 }: ShowMoreButtonProps) {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	if (!hasMoreTracks) return null
 

@@ -4,7 +4,7 @@ import AlbumsList from '@/components/Album/List'
 import Pagination from '@/components/Pagination'
 import { AlbumsLoadingSpinner, AlbumsErrorState } from '../LoadingState'
 import { ArtistAlbumsSectionProps } from '@/types'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function ArtistAlbumsSection({
 	artistName,
@@ -14,7 +14,7 @@ export default function ArtistAlbumsSection({
 	currentPage,
 	onPageChange,
 }: ArtistAlbumsSectionProps) {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	if (isLoading) {
 		return <AlbumsLoadingSpinner />

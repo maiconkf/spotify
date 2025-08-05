@@ -85,9 +85,13 @@ describe('ArtistResults Component', () => {
 					followers: { total: 1000000 },
 					genres: ['rock', 'pop'],
 					images: [
-						{ url: 'https:
+						{
+							url: 'https://example.com/image1.jpg',
+							height: 640,
+							width: 640,
+						},
 					],
-					external_urls: { spotify: 'https:
+					external_urls: { spotify: 'https://spotify.com/artist1' },
 				},
 				{
 					id: '2',
@@ -96,9 +100,13 @@ describe('ArtistResults Component', () => {
 					followers: { total: 500000 },
 					genres: ['jazz', 'blues'],
 					images: [
-						{ url: 'https:
+						{
+							url: 'https://example.com/image2.jpg',
+							height: 640,
+							width: 640,
+						},
 					],
-					external_urls: { spotify: 'https:
+					external_urls: { spotify: 'https://spotify.com/artist2' },
 				},
 			],
 			total: 100,
@@ -171,12 +179,12 @@ describe('ArtistResults Component', () => {
 					genres: ['rock'],
 					images: [
 						{
-							url: `https:
+							url: `https://example.com/image.jpg`,
 							height: 640,
 							width: 640,
 						},
 					],
-					external_urls: { spotify: `https:
+					external_urls: { spotify: `https://spotify.com/artist` },
 				})),
 				total: 5,
 				limit: 20,

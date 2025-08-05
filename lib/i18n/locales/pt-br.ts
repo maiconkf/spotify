@@ -1,8 +1,17 @@
 import { TranslationTokens } from '../index'
 
 export const ptBr: TranslationTokens = {
+	meta: {
+		title: 'Kanastra Spotify App - Descubra Artistas e Álbuns',
+		description:
+			'Busque e descubra artistas e álbuns no Spotify. Explore músicas, veja informações detalhadas dos artistas e encontre seus álbuns favoritos.',
+		artistTitle: '{{artistName}} - Spotify Challenge',
+		artistDescription:
+			'Descubra {{artistName}} no Spotify. Veja as top faixas, álbuns e informações detalhadas do artista.',
+	},
+
 	search: {
-		placeholder: 'Buscar artistas ou álbuns...',
+		placeholder: 'Buscar artistas ou álbuns (mín. 3 caracteres)...',
 		button: 'Buscar',
 		searching: 'Buscando...',
 		results: 'Resultados para "{{query}}"',

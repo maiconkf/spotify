@@ -31,7 +31,7 @@ describe('Spotify Authentication', () => {
 
 			expect(token).toBe('mock_access_token')
 			expect(mockAxios.post).toHaveBeenCalledWith(
-				'https:
+				'https://accounts.spotify.com/api/token',
 				expect.any(URLSearchParams),
 				{
 					headers: {
@@ -91,7 +91,7 @@ describe('Spotify Authentication', () => {
 			await getValidToken()
 
 			const [url, params] = mockAxios.post.mock.calls[0]
-			expect(url).toBe('https:
+			expect(url).toBe('https://accounts.spotify.com/api/token')
 
 			expect((params as URLSearchParams).get('grant_type')).toBe(
 				'client_credentials'

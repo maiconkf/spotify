@@ -1,8 +1,17 @@
 import { TranslationTokens } from '../index'
 
 export const en: TranslationTokens = {
+	meta: {
+		title: 'Kanastra Spotify App - Discover Artists and Albums',
+		description:
+			'Search and discover artists and albums on Spotify. Explore music, view detailed artist information and find your favorite albums.',
+		artistTitle: '{{artistName}} - Spotify Challenge',
+		artistDescription:
+			'Discover {{artistName}} on Spotify. See top tracks, albums and detailed artist information.',
+	},
+
 	search: {
-		placeholder: 'Search artists or albums...',
+		placeholder: 'Search artists or albums (min. 3 characters)...',
 		button: 'Search',
 		searching: 'Searching...',
 		results: 'Results for "{{query}}"',

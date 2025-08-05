@@ -1,12 +1,12 @@
 import { X } from 'lucide-react'
 import { SearchResultsHeaderProps } from '@/types'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 const SearchResultsHeader = ({
 	searchQuery,
 	onClearSearch,
 }: SearchResultsHeaderProps) => {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	return (
 		<div className="flex items-center justify-between mb-6">

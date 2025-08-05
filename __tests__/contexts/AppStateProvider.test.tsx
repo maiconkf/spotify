@@ -12,12 +12,12 @@ const mockArtist: SpotifyArtist = {
 	images: [
 		{
 			height: 640,
-			url: 'https:
+			url: 'https://example.com/placeholder',
 			width: 640,
 		},
 	],
 	external_urls: {
-		spotify: 'https:
+		spotify: 'https://example.com/placeholder',
 	},
 }
 

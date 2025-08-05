@@ -1,13 +1,13 @@
 import { Calendar, ExternalLink, Music } from 'lucide-react'
 import Image from 'next/image'
 import { AlbumCardProps } from '@/types'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function AlbumCard({ album }: AlbumCardProps) {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 	const imageUrl =
 		album.images[0]?.url ??
-		`https:
+		`https://placehold.co/640x640?text=${encodeURIComponent(album.name)}`
 
 	const releaseYear = new Date(album.release_date).getFullYear()
 	const artistNames = album.artists.map(artist => artist.name).join(', ')

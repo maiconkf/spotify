@@ -1,7 +1,7 @@
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function TopTracksLoading() {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	return (
 		<div className="bg-white rounded-lg shadow-md p-6">

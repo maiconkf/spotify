@@ -7,9 +7,9 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"test": "NODE_OPTIONS=\"--max-old-space-size=8192\" jest --detectOpenHandles --forceExit",
-		"test:watch": "NODE_OPTIONS=\"--max-old-space-size=8192\" jest --watch --maxWorkers=50%",
-		"test:coverage": "NODE_OPTIONS=\"--max-old-space-size=8192\" jest --coverage --detectOpenHandles --forceExit"
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "jest --coverage"
 	},
 	"dependencies": {
 		"@tanstack/react-query": "^5.84.1",

@@ -3,13 +3,13 @@
 import Image from 'next/image'
 import { Music, Users, ExternalLink } from 'lucide-react'
 import { ArtistProfileProps } from '@/types'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function ArtistProfile({
 	artist,
 	onOpenSpotify,
 }: ArtistProfileProps) {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	return (
 		<div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">

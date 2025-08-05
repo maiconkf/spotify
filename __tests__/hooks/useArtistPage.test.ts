@@ -9,6 +9,9 @@ import {
 
 jest.mock('next/navigation', () => ({
 	useRouter: jest.fn(),
+	useParams: () => ({
+		locale: 'pt-BR',
+	}),
 }))
 
 jest.mock('@/contexts/ArtistContext', () => ({
@@ -74,17 +77,29 @@ describe('useArtistPage', () => {
 			result.current.goHome()
 		})
 
-		expect(mockPush).toHaveBeenCalledWith('/')
+		expect(mockPush).toHaveBeenCalledWith('/pt-BR')
 	})
 
 	it('should handle back navigation', () => {
+		const savedState = JSON.stringify({
+			query: 'test',
+			page: 1,
+			type: 'artist',
+		})
+		Object.defineProperty(window, 'sessionStorage', {
+			value: {
+				getItem: jest.fn(() => savedState),
+			},
+			writable: true,
+		})
+
 		const { result } = renderHook(() => useArtistPage('artist123'))
 
 		act(() => {
 			result.current.handleBack()
 		})
 
-		expect(mockBack).toHaveBeenCalled()
+		expect(mockPush).toHaveBeenCalledWith('/pt-BR?q=test&page=1&type=artist')
 	})
 
 	it('should handle page changes', () => {
@@ -99,7 +114,7 @@ describe('useArtistPage', () => {
 
 	it('should open Spotify links', () => {
 		const { result } = renderHook(() => useArtistPage('artist123'))
-		const mockUrl = 'https:
+		const mockUrl = 'https://open.spotify.com/artist/test'
 
 		act(() => {
 			result.current.openSpotifyLink(mockUrl)

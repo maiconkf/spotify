@@ -7,9 +7,9 @@ jest.mock('@/contexts/I18nContext', () => ({
 	useI18n: () => ({
 		t: (key: string) => {
 			const translations: Record<string, string> = {
-				'artist.noAlbums': 'No albums available',
+				'artist.noAlbums': 'Nenhum álbum encontrado',
 				'albumsList.noAlbumsDescription':
-					'This artist has not released any albums yet.',
+					'Este artista não possui álbuns disponíveis no momento.',
 			}
 			return translations[key] || key
 		},
@@ -54,10 +54,10 @@ describe('AlbumsList Component', () => {
 			release_date: '2023-01-01',
 			total_tracks: 12,
 			images: [
-				{ url: 'https:
+				{ url: 'https://example.com/album1.jpg', height: 640, width: 640 },
 			],
 			artists: [{ id: 'artist1', name: 'Artist 1' }],
-			external_urls: { spotify: 'https:
+			external_urls: { spotify: 'https://spotify.com/album1' },
 		},
 		{
 			id: '2',
@@ -66,10 +66,10 @@ describe('AlbumsList Component', () => {
 			release_date: '2023-06-15',
 			total_tracks: 1,
 			images: [
-				{ url: 'https:
+				{ url: 'https://example.com/album2.jpg', height: 640, width: 640 },
 			],
 			artists: [{ id: 'artist1', name: 'Artist 1' }],
-			external_urls: { spotify: 'https:
+			external_urls: { spotify: 'https://spotify.com/album2' },
 		},
 		{
 			id: '3',
@@ -78,10 +78,10 @@ describe('AlbumsList Component', () => {
 			release_date: '2022-12-01',
 			total_tracks: 8,
 			images: [
-				{ url: 'https:
+				{ url: 'https://example.com/album3.jpg', height: 640, width: 640 },
 			],
 			artists: [{ id: 'artist1', name: 'Artist 1' }],
-			external_urls: { spotify: 'https:
+			external_urls: { spotify: 'https://spotify.com/album3' },
 		},
 	]
 
@@ -97,9 +97,9 @@ describe('AlbumsList Component', () => {
 			'mb-4'
 		)
 
-		expect(screen.getByText('No albums available')).toBeInTheDocument()
+		expect(screen.getByText('Nenhum álbum encontrado')).toBeInTheDocument()
 		expect(
-			screen.getByText('This artist has not released any albums yet.')
+			screen.getByText('Este artista não possui álbuns disponíveis no momento.')
 		).toBeInTheDocument()
 
 		expect(screen.queryByTestId('album-card-1')).not.toBeInTheDocument()
@@ -167,7 +167,7 @@ describe('AlbumsList Component', () => {
 		const emptyStateContainer = screen.getByTestId('music-icon').parentElement
 		expect(emptyStateContainer).toHaveClass('text-center', 'py-12')
 
-		const heading = screen.getByText('No albums available')
+		const heading = screen.getByText('Nenhum álbum encontrado')
 		expect(heading).toHaveClass(
 			'text-xl',
 			'font-semibold',
@@ -176,7 +176,7 @@ describe('AlbumsList Component', () => {
 		)
 
 		const description = screen.getByText(
-			'This artist has not released any albums yet.'
+			'Este artista não possui álbuns disponíveis no momento.'
 		)
 		expect(description).toHaveClass('text-gray-600')
 	})

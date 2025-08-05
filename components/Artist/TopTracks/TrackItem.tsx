@@ -3,7 +3,7 @@
 import { Play, Clock, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import { TrackItemProps } from '@/types/components'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 function formatDuration(ms: number): string {
 	const minutes = Math.floor(ms / 60000)
@@ -12,7 +12,7 @@ function formatDuration(ms: number): string {
 }
 
 export default function TrackItem({ track, index }: TrackItemProps) {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 	const albumImage = track.album.images[0]?.url
 
 	const handleTrackClick = () => {

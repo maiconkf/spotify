@@ -79,9 +79,9 @@ describe('ArtistTopTracks Component', () => {
 		duration_ms: 180000,
 		explicit: false,
 		popularity: 80,
-		preview_url: 'https:
+		preview_url: 'https://example.com/placeholder',
 		track_number: i + 1,
-		external_urls: { spotify: 'https:
+		external_urls: { spotify: 'https://example.com/placeholder' },
 		album: {
 			id: 'album1',
 			name: 'Test Album',
@@ -114,7 +114,7 @@ describe('ArtistTopTracks Component', () => {
 		const emptyState = screen.getByTestId('empty-state')
 		expect(emptyState).toBeInTheDocument()
 		expect(emptyState).toHaveAttribute('data-is-error', 'true')
-		expect(emptyState).toHaveTextContent('Error occurred')
+		expect(emptyState).toHaveTextContent('Não foi possível carregar os dados.')
 	})
 
 	it('should render empty state when no tracks', () => {
@@ -128,7 +128,7 @@ describe('ArtistTopTracks Component', () => {
 
 		const emptyState = screen.getByTestId('empty-state')
 		expect(emptyState).toBeInTheDocument()
-		expect(emptyState).toHaveTextContent('No top tracks available')
+		expect(emptyState).toHaveTextContent('Nenhuma faixa popular encontrada')
 	})
 
 	it('should render tracks with show more button when more than 5 tracks', () => {
@@ -186,6 +186,6 @@ describe('ArtistTopTracks Component', () => {
 
 		render(<ArtistTopTracks artistId={mockArtistId} />)
 
-		expect(screen.getByText('Top Tracks')).toBeInTheDocument()
+		expect(screen.getByText('Top Faixas')).toBeInTheDocument()
 	})
 })

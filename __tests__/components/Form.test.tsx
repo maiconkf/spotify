@@ -51,7 +51,7 @@ describe('SearchForm Component', () => {
 		render(<SearchForm {...defaultProps} />)
 
 		const input = screen.getByPlaceholderText(
-			'Search for artists and albums...'
+			'Buscar artistas ou álbuns (mín. 3 caracteres)...'
 		)
 		expect(input).toBeInTheDocument()
 	})

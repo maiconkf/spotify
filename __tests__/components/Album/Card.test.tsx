@@ -10,27 +10,27 @@ const mockAlbum = {
 	release_date: '2023-01-15',
 	images: [
 		{
-			url: 'https:
+			url: 'https://example.com/album-image.jpg',
 			height: 640,
 			width: 640,
 		},
 	],
 	external_urls: {
-		spotify: 'https:
+		spotify: 'https://open.spotify.com/album/test-album',
 	},
 	artists: [
 		{
 			id: 'artist-1',
 			name: 'Test Artist',
 			external_urls: {
-				spotify: 'https:
+				spotify: 'https://open.spotify.com/artist/artist-1',
 			},
 		},
 		{
 			id: 'artist-2',
 			name: 'Featured Artist',
 			external_urls: {
-				spotify: 'https:
+				spotify: 'https://open.spotify.com/artist/artist-2',
 			},
 		},
 	],
@@ -70,7 +70,10 @@ describe('AlbumCard', () => {
 		renderWithI18n(<AlbumCard album={mockAlbum} />)
 
 		const image = screen.getByTestId('next-image')
-		expect(image).toHaveAttribute('data-src', 'https:
+		expect(image).toHaveAttribute(
+			'data-src',
+			'https://example.com/album-image.jpg'
+		)
 		expect(image).toHaveAttribute('data-alt', 'Test Album')
 	})
 
@@ -109,7 +112,7 @@ describe('AlbumCard', () => {
 		const link = screen.getByRole('link')
 		expect(link).toHaveAttribute(
 			'href',
-			'https:
+			'https://open.spotify.com/album/test-album'
 		)
 		expect(link).toHaveAttribute('target', '_blank')
 		expect(link).toHaveAttribute('rel', 'noopener noreferrer')

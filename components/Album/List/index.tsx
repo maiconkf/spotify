@@ -3,10 +3,10 @@
 import { Music } from 'lucide-react'
 import { SimpleAlbumsListProps } from '@/types'
 import AlbumCard from '@/components/Album/Card'
-import { useI18n } from '@/contexts/I18nContext'
+import { useTranslations } from '@/hooks/useTranslations'
 
 export default function AlbumsList({ albums }: SimpleAlbumsListProps) {
-	const { t } = useI18n()
+	const { t } = useTranslations()
 
 	if (albums.length === 0) {
 		return (
