@@ -19,6 +19,16 @@ Este é um projeto [Next.js](https://nextjs.org) para busca de artistas e álbun
 
 ## 🚀 Como executar
 
+### Versão do Node.js
+
+Este projeto requer **Node.js 18.x ou superior**. Recomendamos usar a versão **20.x** para melhor compatibilidade.
+
+Verifique sua versão do Node.js:
+
+```bash
+node --version
+```
+
 ### 1. Configurar credenciais do Spotify
 
 Antes de executar o projeto, você precisa configurar suas credenciais do Spotify API:
@@ -29,8 +39,8 @@ Antes de executar o projeto, você precisa configurar suas credenciais do Spotif
 4. Crie um arquivo `.env.local` na raiz do projeto com as seguintes variáveis:
 
 ```bash
-SPOTIFY_CLIENT_ID=seu_client_id_aqui
-SPOTIFY_CLIENT_SECRET=seu_client_secret_aqui
+NEXT_PUBLIC_SPOTIFY_CLIENT_ID=seu_client_id_aqui
+NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET=seu_client_secret_aqui
 ```
 
 ### 2. Instalar dependências
@@ -241,6 +251,12 @@ O projeto implementa um sistema completo de internacionalização com as seguint
 - `npm run test` - Executa os testes
 - `npm run test:watch` - Executa os testes em modo watch
 - `npm run test:coverage` - Executa os testes com relatório de cobertura
+
+## 🌐 Demo
+
+🚀 **[Acesse a demonstração online aqui](https://kanastra-spotify.netlify.app/)**
+
+> **Nota**: A demo está configurada com credenciais públicas do Spotify para demonstração. Para usar suas próprias credenciais, siga as instruções de configuração acima.
 
 ## 📚 Saiba mais
 
