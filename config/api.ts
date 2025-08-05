@@ -6,7 +6,7 @@ import axios, {
 import { getAuthHeaders, clearToken } from '@/lib/spotifyAuth'
 
 const config: AxiosRequestConfig = {
-	baseURL: 'https://api.spotify.com',
+	baseURL: 'https:
 	headers: {
 		'Content-type': 'application/json',
 		Accept: 'application/json',

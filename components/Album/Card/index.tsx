@@ -7,7 +7,7 @@ export default function AlbumCard({ album }: AlbumCardProps) {
 	const { t } = useI18n()
 	const imageUrl =
 		album.images[0]?.url ??
-		`https://placehold.co/640x640?text=${encodeURIComponent(album.name)}`
+		`https:
 
 	const releaseYear = new Date(album.release_date).getFullYear()
 	const artistNames = album.artists.map(artist => artist.name).join(', ')

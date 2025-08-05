@@ -16,7 +16,7 @@ const isTokenValid = (): boolean => {
 const fetchNewToken = async (): Promise<StoredToken> => {
 	try {
 		const response = await axios.post<SpotifyTokenResponse>(
-			'https://accounts.spotify.com/api/token',
+			'https:
 			new URLSearchParams({
 				grant_type: 'client_credentials',
 				client_id: CLIENT_ID,

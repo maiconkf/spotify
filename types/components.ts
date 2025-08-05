@@ -62,7 +62,7 @@ export interface ResultsCounterProps {
 }
 
 export interface ArtistResultsProps extends SearchResultsData {
-	artistsData: SpotifySearchResponse
+	artistsData?: SpotifySearchResponse
 }
 
 export interface AlbumResultsProps extends SearchResultsData {

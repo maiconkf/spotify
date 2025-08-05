@@ -8,7 +8,7 @@ export default function ArtistCard({ artist }: ArtistCardProps) {
 	const { t, language } = useI18n()
 	const imageUrl =
 		artist.images[0]?.url ??
-		`https://placehold.co/640x640?text=${encodeURIComponent(artist.name)}`
+		`https:
 
 	const locale = language === 'pt-br' ? 'pt-BR' : 'en-US'
 	const followersCount = artist.followers.total.toLocaleString(locale)
