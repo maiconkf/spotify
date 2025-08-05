@@ -6,15 +6,16 @@ const defaultLocale = 'pt-BR'
 
 function getLocale(request: NextRequest): string {
 	const acceptLanguage = request.headers.get('accept-language') || ''
-	let locale = defaultLocale
 
-	if (acceptLanguage.includes('en')) {
-		locale = 'en'
-	} else if (acceptLanguage.includes('pt')) {
-		locale = 'pt-BR'
+	if (acceptLanguage.startsWith('pt')) {
+		return 'pt-BR'
 	}
 
-	return locale
+	if (acceptLanguage.startsWith('en')) {
+		return 'en'
+	}
+
+	return defaultLocale
 }
 
 export function middleware(request: NextRequest) {
@@ -28,10 +29,24 @@ export function middleware(request: NextRequest) {
 		const locale = getLocale(request)
 
 		if (pathname === '/') {
-			return NextResponse.redirect(new URL(`/${locale}`, request.url))
+			const response = NextResponse.redirect(new URL(`/${locale}`, request.url))
+			response.headers.set(
+				'x-debug-accept-language',
+				request.headers.get('accept-language') || 'none'
+			)
+			response.headers.set('x-debug-detected-locale', locale)
+			return response
 		}
 
-		return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url))
+		const response = NextResponse.redirect(
+			new URL(`/${locale}${pathname}`, request.url)
+		)
+		response.headers.set(
+			'x-debug-accept-language',
+			request.headers.get('accept-language') || 'none'
+		)
+		response.headers.set('x-debug-detected-locale', locale)
+		return response
 	}
 
 	return NextResponse.next()
