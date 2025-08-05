@@ -1,6 +1,6 @@
 'use client'
 
-import SimpleAlbumsList from '@/components/SimpleAlbumsList'
+import AlbumsList from '@/components/Album/List'
 import Pagination from '@/components/Pagination'
 import { AlbumsLoadingSpinner, AlbumsErrorState } from '../LoadingState'
 import { ArtistAlbumsSectionProps } from '@/types'
@@ -28,9 +28,9 @@ export default function ArtistAlbumsSection({
 	return (
 		<div id="albums-section">
 			<h3 className="text-2xl font-bold text-gray-900 mb-6">
-				Álbuns de {artistName || 'Artista'}
+				Álbuns de {artistName}
 			</h3>
-			<SimpleAlbumsList albums={albumsData.items} />
+			<AlbumsList albums={albumsData.items} />
 
 			{albumsData.total > 20 && (
 				<div className="mt-8">

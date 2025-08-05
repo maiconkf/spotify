@@ -12,7 +12,7 @@ const SearchResultsHeader = ({
 			</h2>
 			<button
 				onClick={onClearSearch}
-				className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-3 py-1 rounded-md transition-colors"
+				className="cursor-pointer flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-3 py-1 rounded-md transition-colors"
 			>
 				<X className="h-4 w-4" />
 				Limpar pesquisa

@@ -103,7 +103,9 @@ O projeto utiliza o fluxo **Client Credentials** do Spotify API:
     ResultsCounter/         # Contador de resultados
     SearchFilters/          # Filtros de busca
     SearchResultsHeader/    # Cabeçalho dos resultados
-  /SimpleAlbumsList/        # Lista simples de álbuns
+  /Album/
+    /Card/                # Card individual de álbum
+    /List/                # Lista/grid de álbuns usando AlbumCard
 /config
   api.ts                    # Configuração do Axios
 /contexts

@@ -10,24 +10,12 @@ export default function AlbumCard({ album }: AlbumCardProps) {
 	const releaseYear = new Date(album.release_date).getFullYear()
 	const artistNames = album.artists.map(artist => artist.name).join(', ')
 
-	const openSpotifyLink = (e: React.MouseEvent) => {
-		e.preventDefault()
-		window.open(album.external_urls.spotify, '_blank')
-	}
-
-	const handleCardClick = () => {
-		window.open(album.external_urls.spotify, '_blank')
-	}
-
-	const handleButtonClick = (e: React.MouseEvent) => {
-		e.stopPropagation() // Previne que o clique no botão acione o clique do card
-		openSpotifyLink(e)
-	}
-
 	return (
-		<div
+		<a
+			href={album.external_urls.spotify}
+			target="_blank"
+			rel="noopener noreferrer"
 			className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all border-2 border-transparent hover:border-gray-200 cursor-pointer"
-			onClick={handleCardClick}
 		>
 			<div className="p-4">
 				<div className="relative w-full aspect-square mb-4 overflow-hidden rounded-lg bg-gray-100">
@@ -67,7 +55,6 @@ export default function AlbumCard({ album }: AlbumCardProps) {
 					</span>
 
 					<button
-						onClick={handleButtonClick}
 						className="p-2 text-gray-400 hover:text-green-600 cursor-pointer transition-colors"
 						title="Abrir no Spotify"
 					>
@@ -75,6 +62,6 @@ export default function AlbumCard({ album }: AlbumCardProps) {
 					</button>
 				</div>
 			</div>
-		</div>
+		</a>
 	)
 }

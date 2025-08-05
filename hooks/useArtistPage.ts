@@ -14,6 +14,7 @@ export function useArtistPage(artistId: string) {
 	const { getArtist, setArtist } = useArtistContext()
 	const [artistData, setArtistData] = useState<SpotifyArtist | null>(null)
 	const [currentPage, setCurrentPage] = useState(1)
+	const [shouldScrollToAlbums, setShouldScrollToAlbums] = useState(false)
 
 	const contextArtist = getArtist(artistId)
 	const {
@@ -53,13 +54,15 @@ export function useArtistPage(artistId: string) {
 
 	const handlePageChange = (page: number) => {
 		setCurrentPage(page)
+		setShouldScrollToAlbums(true)
 	}
 
 	useEffect(() => {
-		if (albumsData) {
+		if (albumsData && shouldScrollToAlbums) {
 			handleScrollToAlbums()
+			setShouldScrollToAlbums(false)
 		}
-	}, [albumsData])
+	}, [albumsData, shouldScrollToAlbums])
 
 	const openSpotifyLink = (url: string) => {
 		window.open(url, '_blank')

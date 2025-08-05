@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect, useState, Suspense } from 'react'
-import { SpotifyArtist, SearchType } from '@/types'
+import { useEffect, Suspense } from 'react'
+import { SearchType } from '@/types'
 import SearchForm from '@/components/Form'
-import AlbumsList from '@/components/Artist/List'
 import AppHeader from '@/components/AppHeader'
 import { SearchFilters, ArtistResults, AlbumResults } from '@/components/Search'
 import EmptyState from '@/components/EmptyState'
@@ -21,10 +20,6 @@ import {
 } from '@/hooks/useSpotify'
 
 function SpotifyApp() {
-	const [selectedArtist, setSelectedArtist] = useState<SpotifyArtist | null>(
-		null
-	)
-
 	const { updateURL, goHome } = useNavigation()
 	const { isProgrammaticScroll, startProgrammaticScroll } =
 		useProgrammaticScroll()
@@ -83,26 +78,22 @@ function SpotifyApp() {
 
 	const handleSearchWithNavigation = (query: string) => {
 		handleSearch(query)
-		setSelectedArtist(null)
 		updateURL({ query, page: 1, type: searchType })
 	}
 
 	const handlePageChangeWithNavigation = (page: number) => {
 		startProgrammaticScroll()
 		handlePageChange(page)
-		setSelectedArtist(null)
 		updateURL({ query: searchQuery, page, type: searchType })
 	}
 
 	const handleFilterChange = (type: SearchType) => {
 		handleTypeChange(type)
-		setSelectedArtist(null)
 		updateURL({ query: searchQuery, page: 1, type })
 	}
 
 	const handleClearSearch = () => {
 		clearSearch()
-		setSelectedArtist(null)
 		goHome()
 	}
 
@@ -178,8 +169,6 @@ function SpotifyApp() {
 					)}
 
 				{!searchQuery && <EmptyState type="welcome" />}
-
-				{selectedArtist && <AlbumsList artist={selectedArtist} />}
 			</main>
 		</div>
 	)
