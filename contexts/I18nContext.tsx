@@ -1,9 +1,9 @@
 'use client'
 
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import { Language, translate as translateText } from '@/lib/i18n'
+import { translate as translateText } from '@/lib/i18n'
 import { translationConfig } from '@/lib/i18n/config'
-import { I18nContextType, I18nProviderProps } from '@/types/i18n'
+import { I18nContextType, I18nProviderProps, Language } from '@/types/i18n'
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined)
 

@@ -1,4 +1,6 @@
-export type Language = 'pt-br' | 'en'
+import { Language } from '@/types/i18n'
+
+export type { Language }
 
 export interface TranslationTokens {
 	[key: string]: string | TranslationTokens

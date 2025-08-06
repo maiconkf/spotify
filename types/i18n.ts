@@ -1,5 +1,8 @@
 import { ReactNode } from 'react'
-import { Language, TranslationTokens } from '@/lib/i18n'
+import { TranslationTokens } from '@/lib/i18n'
+
+export type Language = 'pt-br' | 'en'
+export type Locale = 'pt-BR' | 'en'
 
 export interface I18nContextType {
 	language: Language

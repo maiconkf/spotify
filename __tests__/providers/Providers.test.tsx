@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import Providers from '@/providers/Providers'
 
-jest.mock('@/contexts/AppStateProvider', () => ({
+jest.mock('@/contexts/AppStateContext', () => ({
 	AppStateProvider: ({ children }: { children: React.ReactNode }) => (
 		<div>{children}</div>
 	),

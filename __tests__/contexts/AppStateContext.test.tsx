@@ -1,6 +1,6 @@
 import React from 'react'
 import { renderHook, act } from '@testing-library/react'
-import { AppStateProvider, useAppState } from '@/contexts/AppStateProvider'
+import { AppStateProvider, useAppState } from '@/contexts/AppStateContext'
 import type { SpotifyArtist } from '@/types'
 
 const mockArtist: SpotifyArtist = {

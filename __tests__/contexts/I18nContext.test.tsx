@@ -1,6 +1,6 @@
 import { render, screen, act, renderHook } from '@testing-library/react'
 import { I18nProvider, useI18n } from '@/contexts/I18nContext'
-import { Language } from '@/lib/i18n'
+import { Language } from '@/types/i18n'
 
 const localStorageMock = {
 	getItem: jest.fn(),

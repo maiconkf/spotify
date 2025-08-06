@@ -1,7 +1,8 @@
 import { useParams, usePathname, useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
+import { Locale } from '@/types/i18n'
 
-export type Locale = 'pt-BR' | 'en'
+export type { Locale }
 
 const locales: Locale[] = ['pt-BR', 'en']
 const defaultLocale: Locale = 'pt-BR'
@@ -12,6 +13,12 @@ export function useI18n() {
 	const router = useRouter()
 
 	const locale = (params?.locale as Locale) || defaultLocale
+
+	useEffect(() => {
+		if (typeof document !== 'undefined') {
+			document.documentElement.lang = locale
+		}
+	}, [locale])
 
 	const changeLocale = useCallback(
 		(newLocale: Locale) => {

@@ -2,7 +2,7 @@
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
-import { useAppState } from '@/contexts/AppStateProvider'
+import { useAppState } from '@/contexts/AppStateContext'
 import api from '@/config/api'
 import {
 	SpotifyAlbumsResponse,

@@ -1,6 +1,7 @@
 import { useParams } from 'next/navigation'
 import { translationConfig } from '@/lib/i18n/config'
-import { Language, TranslationTokens, tokenize } from '@/lib/i18n/index'
+import { TranslationTokens, tokenize } from '@/lib/i18n/index'
+import { Language } from '@/types/i18n'
 
 export function useTranslations() {
 	const params = useParams()
