@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import ResultsCounter from '@/components/Search/ResultsCounter'
-import { I18nProvider } from '@/contexts/I18nContext'
+
 
 const renderWithI18n = (component: React.ReactElement) => {
-	return render(<I18nProvider>{component}</I18nProvider>)
+	return render(component)
 }
 
 describe('ResultsCounter', () => {

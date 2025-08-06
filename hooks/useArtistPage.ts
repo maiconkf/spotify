@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { SpotifyArtist } from '@/types/spotify'
-import { useArtistContext } from '@/contexts/ArtistContext'
+import { useAppState } from '@/contexts/AppStateContext'
 import {
 	useOptimizedArtist,
 	useOptimizedArtistAlbums,
@@ -13,7 +13,8 @@ export function useArtistPage(artistId: string) {
 	const router = useRouter()
 	const params = useParams()
 	const locale = (params?.locale as string) || 'pt-BR'
-	const { getArtist, setArtist } = useArtistContext()
+	const { actions } = useAppState()
+	const { getArtist, setArtist } = actions
 	const [artistData, setArtistData] = useState<SpotifyArtist | null>(null)
 	const [currentPage, setCurrentPage] = useState(1)
 	const [shouldScrollToAlbums, setShouldScrollToAlbums] = useState(false)

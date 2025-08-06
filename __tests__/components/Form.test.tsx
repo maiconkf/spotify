@@ -3,18 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import SearchForm from '@/components/Form'
 
-jest.mock('@/contexts/I18nContext', () => ({
-	useI18n: () => ({
-		t: (key: string) => {
-			const translations: Record<string, string> = {
-				'search.placeholder': 'Search for artists and albums...',
-				'search.button': 'Search',
-			}
-			return translations[key] || key
-		},
-	}),
-}))
-
 describe('SearchForm Component', () => {
 	const mockOnSearch = jest.fn()
 

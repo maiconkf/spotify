@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
 import AppHeader from '@/components/AppHeader'
-import { I18nProvider } from '@/contexts/I18nContext'
 
 jest.mock('@/components/LanguageSwitcher', () => {
 	return function MockLanguageSwitcher() {
@@ -13,7 +12,7 @@ jest.mock('lucide-react', () => ({
 }))
 
 const renderWithI18n = (component: React.ReactElement) => {
-	return render(<I18nProvider>{component}</I18nProvider>)
+	return render(component)
 }
 
 describe('AppHeader', () => {

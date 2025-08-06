@@ -7,12 +7,6 @@ jest.mock('@/contexts/AppStateContext', () => ({
 	),
 }))
 
-jest.mock('@/contexts/ArtistContext', () => ({
-	ArtistProvider: ({ children }: { children: React.ReactNode }) => (
-		<div>{children}</div>
-	),
-}))
-
 describe('Providers', () => {
 	it('renders children correctly', () => {
 		render(

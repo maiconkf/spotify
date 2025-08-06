@@ -5,12 +5,6 @@ import EmptyState from '@/components/EmptyState'
 import LoadingState from '@/components/LoadingState'
 import ErrorState from '@/components/ErrorState'
 
-jest.mock('@/contexts/I18nContext', () => ({
-	useI18n: () => ({
-		t: (key: string) => key,
-	}),
-}))
-
 describe('State Components', () => {
 	describe('EmptyState Component', () => {
 		it('should render without crashing', () => {

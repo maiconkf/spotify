@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { render, screen, fireEvent } from '@testing-library/react'
 import ArtistCard from '@/components/Artist/Card'
-import { I18nProvider } from '@/contexts/I18nContext'
+
 
 const mockArtist = {
 	id: 'artist-1',
@@ -81,7 +81,7 @@ afterAll(() => {
 })
 
 const renderWithI18n = (component: React.ReactElement) => {
-	return render(<I18nProvider>{component}</I18nProvider>)
+	return render(component)
 }
 
 describe('ArtistCard', () => {

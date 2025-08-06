@@ -129,12 +129,10 @@ O projeto implementa um sistema completo de internacionalização com as seguint
     pt-br.ts           # Traduções em português brasileiro
     en.ts              # Traduções em inglês
 /contexts/
-  I18nContext.tsx      # Contexto de internacionalização
 /types/
   i18n.ts              # Interfaces TypeScript para i18n
 /hooks/
   useI18n.ts           # Hook principal para traduções
-  useLocalization.ts   # Hook para localização avançada
   useTranslations.ts   # Hook específico para traduções
 /components/
   LanguageSwitcher/    # Componente de troca de idioma
@@ -186,12 +184,9 @@ O projeto implementa um sistema completo de internacionalização com as seguint
   api.ts                    # Configuração do Axios
 /contexts
   AppStateContext.tsx       # Contexto do estado da aplicação
-  ArtistContext.tsx         # Contexto do artista
-  I18nContext.tsx           # Contexto de internacionalização
 /hooks
   useArtistPage.ts          # Hook para página do artista
   useI18n.ts                # Hook principal de internacionalização
-  useLocalization.ts        # Hook de localização avançada
   useNavigation.ts          # Hook de navegação
   usePrefetchObserver.ts    # Hook de prefetch
   useProgrammaticScroll.ts  # Hook de scroll programático

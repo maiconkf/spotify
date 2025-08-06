@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { ArtistProvider } from '@/contexts/ArtistContext'
 import { AppStateProvider } from '@/contexts/AppStateContext'
 import Providers from '@/providers/Providers'
 import { RootLayoutProps } from '@/types/layouts'
@@ -44,9 +43,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 				className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
 			>
 				<Providers>
-					<AppStateProvider>
-						<ArtistProvider>{children}</ArtistProvider>
-					</AppStateProvider>
+					<AppStateProvider>{children}</AppStateProvider>
 				</Providers>
 			</body>
 		</html>

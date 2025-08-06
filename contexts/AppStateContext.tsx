@@ -137,15 +137,3 @@ export function useAppState() {
 	}
 	return context
 }
-
-export function useUIState() {
-	const { state, actions } = useAppState()
-	return {
-		ui: state.ui,
-		setLoading: actions.setLoading,
-		setSearchQuery: actions.setSearchQuery,
-		setCurrentPage: actions.setCurrentPage,
-		setSearchType: actions.setSearchType,
-		setError: actions.setError,
-	}
-}

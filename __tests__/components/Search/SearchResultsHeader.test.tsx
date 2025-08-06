@@ -1,13 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import SearchResultsHeader from '@/components/Search/SearchResultsHeader'
-import { I18nProvider } from '@/contexts/I18nContext'
 
 jest.mock('lucide-react', () => ({
 	X: () => <span data-testid="x-icon" />,
 }))
 
 const renderWithI18n = (component: React.ReactElement) => {
-	return render(<I18nProvider>{component}</I18nProvider>)
+	return render(component)
 }
 
 describe('SearchResultsHeader', () => {

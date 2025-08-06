@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import ArtistHeader from '@/components/Artist/Header'
-import { I18nProvider } from '@/contexts/I18nContext'
+
 
 jest.mock('@/components/LanguageSwitcher', () => {
 	return function MockLanguageSwitcher() {
@@ -13,7 +13,7 @@ jest.mock('lucide-react', () => ({
 }))
 
 const renderWithI18n = (component: React.ReactElement) => {
-	return render(<I18nProvider>{component}</I18nProvider>)
+	return render(component)
 }
 
 describe('ArtistHeader', () => {

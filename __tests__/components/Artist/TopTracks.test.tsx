@@ -7,19 +7,6 @@ jest.mock('@/hooks/useSpotify', () => ({
 	useOptimizedArtistTopTracks: jest.fn(),
 }))
 
-jest.mock('@/contexts/I18nContext', () => ({
-	useI18n: () => ({
-		t: (key: string) => {
-			const translations: Record<string, string> = {
-				'error.subtitle': 'Error occurred',
-				'artist.noTopTracks': 'No top tracks available',
-				'artist.topTracks': 'Top Tracks',
-			}
-			return translations[key] || key
-		},
-	}),
-}))
-
 jest.mock('@/components/Artist/TopTracks/TrackItem', () => ({
 	__esModule: true,
 	default: ({ track, index }: { track: { name: string }; index: number }) => (

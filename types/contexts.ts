@@ -35,10 +35,3 @@ export interface AppContextType {
 		setError: (error: string | null) => void
 	}
 }
-
-export interface ArtistContextType {
-	artists: { [key: string]: SpotifyArtist }
-	setArtist: (id: string, artist: SpotifyArtist) => void
-	getArtist: (id: string) => SpotifyArtist | undefined
-	clearAllArtists: () => void
-}

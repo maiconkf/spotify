@@ -16,10 +16,6 @@ export interface AppStateProviderProps {
 	children: ReactNode
 }
 
-export interface ArtistProviderProps {
-	children: ReactNode
-}
-
 export interface AppHeaderProps {
 	children: React.ReactNode
 }

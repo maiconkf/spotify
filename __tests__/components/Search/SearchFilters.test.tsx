@@ -3,18 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import SearchFilters from '@/components/Search/SearchFilters'
 
-jest.mock('@/contexts/I18nContext', () => ({
-	useI18n: () => ({
-		t: (key: string) => {
-			const translations: Record<string, string> = {
-				'filters.artists': 'Artistas',
-				'filters.albums': 'Álbuns',
-			}
-			return translations[key] || key
-		},
-	}),
-}))
-
 jest.mock('lucide-react', () => ({
 	Users: ({ className }: { className?: string }) => (
 		<div data-testid="users-icon" className={className}>

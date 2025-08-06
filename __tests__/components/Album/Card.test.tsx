@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import AlbumCard from '@/components/Album/Card'
-import { I18nProvider } from '@/contexts/I18nContext'
+
 
 const mockAlbum = {
 	id: 'album-1',
@@ -54,7 +54,7 @@ jest.mock('lucide-react', () => ({
 }))
 
 const renderWithI18n = (component: React.ReactElement) => {
-	return render(<I18nProvider>{component}</I18nProvider>)
+	return render(component)
 }
 
 describe('AlbumCard', () => {

@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react'
 import { useRouter } from 'next/navigation'
 import { useArtistPage } from '@/hooks/useArtistPage'
-import { useArtistContext } from '@/contexts/ArtistContext'
+import { useAppState } from '@/contexts/AppStateContext'
 import {
 	useOptimizedArtist,
 	useOptimizedArtistAlbums,
@@ -14,8 +14,8 @@ jest.mock('next/navigation', () => ({
 	}),
 }))
 
-jest.mock('@/contexts/ArtistContext', () => ({
-	useArtistContext: jest.fn(),
+jest.mock('@/contexts/AppStateContext', () => ({
+	useAppState: jest.fn(),
 }))
 
 jest.mock('@/hooks/useSpotify', () => ({
@@ -45,9 +45,11 @@ describe('useArtistPage', () => {
 			push: mockPush,
 			back: mockBack,
 		})
-		;(useArtistContext as jest.Mock).mockReturnValue({
-			getArtist: mockGetArtist,
-			setArtist: mockSetArtist,
+		;(useAppState as jest.Mock).mockReturnValue({
+			actions: {
+				getArtist: mockGetArtist,
+				setArtist: mockSetArtist,
+			},
 		})
 		;(useOptimizedArtist as jest.Mock).mockReturnValue({
 			data: null,

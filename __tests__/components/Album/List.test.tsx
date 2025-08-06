@@ -3,19 +3,6 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import AlbumsList from '@/components/Album/List'
 
-jest.mock('@/contexts/I18nContext', () => ({
-	useI18n: () => ({
-		t: (key: string) => {
-			const translations: Record<string, string> = {
-				'artist.noAlbums': 'Nenhum álbum encontrado',
-				'albumsList.noAlbumsDescription':
-					'Este artista não possui álbuns disponíveis no momento.',
-			}
-			return translations[key] || key
-		},
-	}),
-}))
-
 interface Album {
 	id: string
 	name: string

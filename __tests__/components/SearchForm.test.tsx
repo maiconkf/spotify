@@ -2,10 +2,9 @@ import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import SearchForm from '@/components/Form'
-import { I18nProvider } from '@/contexts/I18nContext'
 
 const TestWrapper = ({ children }: { children: React.ReactNode }) => (
-	<I18nProvider>{children}</I18nProvider>
+	<>{children}</>
 )
 
 describe('SearchForm Component', () => {
