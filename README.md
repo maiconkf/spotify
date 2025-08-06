@@ -185,7 +185,7 @@ O projeto implementa um sistema completo de internacionalização com as seguint
 /config
   api.ts                    # Configuração do Axios
 /contexts
-  AppStateProvider.tsx      # Provider do estado da aplicação
+  AppStateContext.tsx       # Contexto do estado da aplicação
   ArtistContext.tsx         # Contexto do artista
   I18nContext.tsx           # Contexto de internacionalização
 /hooks
