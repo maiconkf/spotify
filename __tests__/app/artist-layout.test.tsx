@@ -4,12 +4,10 @@ import ArtistLayout, {
 } from '@/app/[locale]/artist/[id]/layout'
 import { getAuthHeaders } from '@/lib/spotifyAuth'
 
-// Mock the Spotify auth
 jest.mock('@/lib/spotifyAuth', () => ({
 	getAuthHeaders: jest.fn(),
 }))
 
-// Mock fetch
 global.fetch = jest.fn()
 
 const mockGetAuthHeaders = getAuthHeaders as jest.Mock
