@@ -321,16 +321,5 @@ export function useCacheOptimization() {
 		actions.clearArtists()
 	}, [queryClient, actions])
 
-	const getStats = useCallback(() => {
-		const queryCache = queryClient.getQueryCache()
-		return {
-			totalQueries: queryCache.getAll().length,
-			totalArtists: Object.keys(actions.getArtist('') || {}).length,
-		}
-	}, [queryClient, actions])
-
-	return {
-		cleanupCache,
-		getStats,
-	}
+	return { cleanupCache }
 }
