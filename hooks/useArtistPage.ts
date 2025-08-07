@@ -39,9 +39,11 @@ export function useArtistPage(artistId: string) {
 			setArtistData(fetchedArtist)
 			setArtist(artistId, fetchedArtist)
 		}
-
-		setCurrentPage(1)
 	}, [artistId, contextArtist, fetchedArtist, setArtist])
+
+	useEffect(() => {
+		setCurrentPage(1)
+	}, [artistId])
 
 	const handleBack = () => {
 		const savedSearchState =

@@ -29,6 +29,7 @@ export default function ArtistTopTracks({ artistId }: ArtistTopTracksProps) {
 	const tracks = topTracksData.tracks
 	const displayedTracks = showAll ? tracks : tracks.slice(0, 5)
 	const hasMoreTracks = tracks.length > 5
+	const hasOnlyFiveTracks = tracks.length === 5
 
 	return (
 		<div className="bg-white rounded-lg shadow-md p-6">
@@ -39,7 +40,9 @@ export default function ArtistTopTracks({ artistId }: ArtistTopTracksProps) {
 			<div className="space-y-1 relative">
 				<div
 					className={`transition-all duration-300 ${
-						showAll ? 'max-h-none' : 'max-h-80 overflow-hidden'
+						showAll || hasOnlyFiveTracks
+							? 'max-h-none'
+							: 'max-h-80 overflow-hidden'
 					}`}
 				>
 					{displayedTracks.map((track, index) => (
