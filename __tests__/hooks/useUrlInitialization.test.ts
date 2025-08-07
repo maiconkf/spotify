@@ -1,14 +1,20 @@
 import { renderHook } from '@testing-library/react'
 import { useSearchParams } from 'next/navigation'
 import { useUrlInitialization } from '@/hooks/useUrlInitialization'
+import { useAppState } from '@/contexts/AppStateContext'
 
 jest.mock('next/navigation', () => ({
 	useSearchParams: jest.fn(),
 }))
 
+jest.mock('@/contexts/AppStateContext', () => ({
+	useAppState: jest.fn(),
+}))
+
 const mockGet = jest.fn()
-const mockHandleSearch = jest.fn()
-const mockHandlePageChange = jest.fn()
+const mockSetSearchQuery = jest.fn()
+const mockSetCurrentPage = jest.fn()
+const mockSetError = jest.fn()
 const mockHandleTypeChange = jest.fn()
 
 describe('useUrlInitialization', () => {
@@ -17,11 +23,16 @@ describe('useUrlInitialization', () => {
 		;(useSearchParams as jest.Mock).mockReturnValue({
 			get: mockGet,
 		})
+		;(useAppState as jest.Mock).mockReturnValue({
+			actions: {
+				setSearchQuery: mockSetSearchQuery,
+				setCurrentPage: mockSetCurrentPage,
+				setError: mockSetError,
+			},
+		})
 	})
 
 	const defaultProps = {
-		handleSearch: mockHandleSearch,
-		handlePageChange: mockHandlePageChange,
 		handleTypeChange: mockHandleTypeChange,
 	}
 
@@ -43,7 +54,9 @@ describe('useUrlInitialization', () => {
 
 		renderHook(() => useUrlInitialization(defaultProps))
 
-		expect(mockHandleSearch).toHaveBeenCalledWith('test query')
+		expect(mockSetSearchQuery).toHaveBeenCalledWith('test query')
+		expect(mockSetError).toHaveBeenCalledWith(null)
+		expect(mockSetCurrentPage).toHaveBeenCalledWith(1)
 		expect(mockHandleTypeChange).toHaveBeenCalledWith('artist')
 	})
 
@@ -56,7 +69,9 @@ describe('useUrlInitialization', () => {
 
 		renderHook(() => useUrlInitialization(defaultProps))
 
-		expect(mockHandleSearch).toHaveBeenCalledWith('test')
+		expect(mockSetSearchQuery).toHaveBeenCalledWith('test')
+		expect(mockSetError).toHaveBeenCalledWith(null)
+		expect(mockSetCurrentPage).toHaveBeenCalledWith(1)
 		expect(mockHandleTypeChange).toHaveBeenCalledWith('album')
 	})
 
@@ -70,8 +85,10 @@ describe('useUrlInitialization', () => {
 
 		renderHook(() => useUrlInitialization(defaultProps))
 
-		expect(mockHandleSearch).toHaveBeenCalledWith('test')
-		expect(mockHandlePageChange).toHaveBeenCalledWith(2)
+		expect(mockSetSearchQuery).toHaveBeenCalledWith('test')
+		expect(mockSetError).toHaveBeenCalledWith(null)
+		expect(mockSetCurrentPage).toHaveBeenCalledWith(2)
+		expect(mockHandleTypeChange).toHaveBeenCalledWith('artist')
 	})
 
 	it('should not change page for page 1', () => {
@@ -83,8 +100,9 @@ describe('useUrlInitialization', () => {
 
 		renderHook(() => useUrlInitialization(defaultProps))
 
-		expect(mockHandleSearch).toHaveBeenCalledWith('test')
-		expect(mockHandlePageChange).not.toHaveBeenCalled()
+		expect(mockSetSearchQuery).toHaveBeenCalledWith('test')
+		expect(mockSetError).toHaveBeenCalledWith(null)
+		expect(mockSetCurrentPage).toHaveBeenCalledWith(1)
 	})
 
 	it('should handle missing search parameters', () => {
@@ -92,7 +110,8 @@ describe('useUrlInitialization', () => {
 
 		const { result } = renderHook(() => useUrlInitialization(defaultProps))
 
-		expect(mockHandleSearch).not.toHaveBeenCalled()
+		expect(mockSetSearchQuery).not.toHaveBeenCalled()
+		expect(mockSetCurrentPage).not.toHaveBeenCalled()
 		expect(result.current.isInitialized).toBe(true)
 	})
 
@@ -104,7 +123,9 @@ describe('useUrlInitialization', () => {
 
 		renderHook(() => useUrlInitialization(defaultProps))
 
-		expect(mockHandleSearch).toHaveBeenCalledWith('hello world')
+		expect(mockSetSearchQuery).toHaveBeenCalledWith('hello world')
+		expect(mockSetError).toHaveBeenCalledWith(null)
+		expect(mockSetCurrentPage).toHaveBeenCalledWith(1)
 	})
 
 	it('should handle invalid page number', () => {
@@ -116,8 +137,9 @@ describe('useUrlInitialization', () => {
 
 		renderHook(() => useUrlInitialization(defaultProps))
 
-		expect(mockHandleSearch).toHaveBeenCalledWith('test')
-		expect(mockHandlePageChange).not.toHaveBeenCalled()
+		expect(mockSetSearchQuery).toHaveBeenCalledWith('test')
+		expect(mockSetError).toHaveBeenCalledWith(null)
+		expect(mockSetCurrentPage).toHaveBeenCalledWith(1)
 	})
 
 	it('should ignore invalid search types', () => {
@@ -129,7 +151,9 @@ describe('useUrlInitialization', () => {
 
 		renderHook(() => useUrlInitialization(defaultProps))
 
-		expect(mockHandleSearch).toHaveBeenCalledWith('test')
+		expect(mockSetSearchQuery).toHaveBeenCalledWith('test')
+		expect(mockSetError).toHaveBeenCalledWith(null)
+		expect(mockSetCurrentPage).toHaveBeenCalledWith(1)
 		expect(mockHandleTypeChange).not.toHaveBeenCalled()
 	})
 
@@ -141,10 +165,10 @@ describe('useUrlInitialization', () => {
 
 		const { rerender } = renderHook(() => useUrlInitialization(defaultProps))
 
-		expect(mockHandleSearch).toHaveBeenCalledTimes(1)
+		expect(mockSetSearchQuery).toHaveBeenCalledTimes(1)
 
 		rerender()
 
-		expect(mockHandleSearch).toHaveBeenCalledTimes(1)
+		expect(mockSetSearchQuery).toHaveBeenCalledTimes(1)
 	})
 })

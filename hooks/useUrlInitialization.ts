@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { UseUrlInitializationProps } from '@/types'
+import { useAppState } from '@/contexts/AppStateContext'
 
 export const useUrlInitialization = ({
-	handleSearch,
-	handlePageChange,
 	handleTypeChange,
-}: UseUrlInitializationProps) => {
+}: {
+	handleTypeChange: (type: 'artist' | 'album') => void
+}) => {
 	const searchParams = useSearchParams()
+	const { actions } = useAppState()
 	const [isInitialized, setIsInitialized] = useState(false)
 
 	useEffect(() => {
@@ -22,25 +23,19 @@ export const useUrlInitialization = ({
 				handleTypeChange(type)
 			}
 
+			actions.setSearchQuery(decodeURIComponent(query))
+			actions.setError(null)
+
 			if (page && !isNaN(parseInt(page))) {
 				const pageNum = parseInt(page)
-
-				if (pageNum > 1) {
-					handlePageChange(pageNum)
-				}
+				actions.setCurrentPage(pageNum)
+			} else {
+				actions.setCurrentPage(1)
 			}
-
-			handleSearch(decodeURIComponent(query))
 		}
 
 		setIsInitialized(true)
-	}, [
-		searchParams,
-		handleSearch,
-		handlePageChange,
-		handleTypeChange,
-		isInitialized,
-	])
+	}, [searchParams, actions, handleTypeChange, isInitialized])
 
 	return { isInitialized }
 }

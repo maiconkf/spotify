@@ -38,8 +38,6 @@ function SpotifyApp() {
 	const { cleanupCache } = useCacheOptimization()
 
 	useUrlInitialization({
-		handleSearch,
-		handlePageChange,
 		handleTypeChange,
 	})
 
