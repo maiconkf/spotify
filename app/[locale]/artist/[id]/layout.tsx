@@ -1,26 +1,11 @@
 import { Metadata } from 'next'
-import { getAuthHeaders } from '@/lib/spotifyAuth'
 import { ArtistLayoutProps } from '@/types/layouts'
+import api from '@/config/api'
 
 async function getArtistData(artistId: string) {
 	try {
-		const authHeaders = await getAuthHeaders()
-
-		const response = await fetch(
-			`https://api.spotify.com/v1/artists/${artistId}`,
-			{
-				headers: {
-					...authHeaders,
-					'Content-Type': 'application/json',
-				},
-			}
-		)
-
-		if (!response.ok) {
-			throw new Error('Failed to fetch artist data')
-		}
-
-		return await response.json()
+		const response = await api.get(`/v1/artists/${artistId}`)
+		return response.data
 	} catch (error) {
 		console.error('Error fetching artist data:', error)
 		return null
